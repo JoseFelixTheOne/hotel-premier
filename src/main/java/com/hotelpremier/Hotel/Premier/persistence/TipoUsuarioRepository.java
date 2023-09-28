@@ -1,7 +1,10 @@
 package com.hotelpremier.Hotel.Premier.persistence;
 
+import com.hotelpremier.Hotel.Premier.domain.UserType;
+import com.hotelpremier.Hotel.Premier.domain.repository.UserTypeRepository;
 import com.hotelpremier.Hotel.Premier.persistence.crud.TipoUsuarioCrudRepository;
 import com.hotelpremier.Hotel.Premier.persistence.entity.TipoUsuario;
+import com.hotelpremier.Hotel.Premier.persistence.mapper.UserTypeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -9,20 +12,31 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class TipoUsuarioRepository {
+public class TipoUsuarioRepository implements UserTypeRepository {
     @Autowired
     private TipoUsuarioCrudRepository tipoUsuarioCrudRepository;
 
-    public List<TipoUsuario> getAll(){
-        return tipoUsuarioCrudRepository.findAll();
+    @Autowired
+    private UserTypeMapper mapper;
+
+    @Override
+    public List<UserType> getAll(){
+        List<TipoUsuario> tipos = tipoUsuarioCrudRepository.findAll();
+        return mapper.toUserTypes(tipos);
     }
-    public Optional<TipoUsuario> getTipoUsuario(int idTipouser){
-        return tipoUsuarioCrudRepository.findById(idTipouser);
+
+    @Override
+    public Optional<UserType> getUserType(int userTypeId) {
+        return tipoUsuarioCrudRepository.findById(userTypeId).map(tipo -> mapper.toUserType(tipo));
     }
-    public TipoUsuario save(TipoUsuario tipoUsuario){
-        return tipoUsuarioCrudRepository.save(tipoUsuario);
+
+    @Override
+    public UserType save(UserType userType) {
+        TipoUsuario tipo = mapper.toTipoUsuario(userType);
+        return mapper.toUserType(tipoUsuarioCrudRepository.save(tipo));
     }
-    public void delete(int idTipouser){
-        tipoUsuarioCrudRepository.deleteById(idTipouser);
+
+    public void delete(int userTypeId){
+        tipoUsuarioCrudRepository.deleteById(userTypeId);
     }
 }
