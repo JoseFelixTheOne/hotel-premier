@@ -2,14 +2,15 @@ package com.hotelpremier.Hotel.Premier.domain.service;
 
 import com.hotelpremier.Hotel.Premier.domain.UserType;
 import com.hotelpremier.Hotel.Premier.domain.repository.UserTypeRepository;
-import com.hotelpremier.Hotel.Premier.persistence.entity.TipoUsuario;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UserTypeService {
     @Autowired
     private UserTypeRepository userTypeRepository;
