@@ -3,6 +3,8 @@ package com.hotelpremier.Hotel.Premier.domain.service;
 import com.hotelpremier.Hotel.Premier.domain.UserType;
 import com.hotelpremier.Hotel.Premier.domain.repository.UserTypeRepository;
 import com.hotelpremier.Hotel.Premier.persistence.entity.TipoUsuario;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -24,7 +26,20 @@ public class UserTypeService {
         return userTypeRepository.save(userType);
     }
 
-    public void delete(int userTypeId){
-        userTypeRepository.delete(userTypeId);
+    public UserType update(UserType userType){
+        int userTypeId = userType.getUserTypeId();
+        UserType type = getUserType(userTypeId).map(t ->{
+            BeanUtils.copyProperties(userType, t);
+            return t;
+        }).orElseThrow(() -> new EntityNotFoundException("UserType not found with ID: " + userTypeId));
+        return userTypeRepository.save(type);
+    }
+    public boolean delete(int userTypeId){
+        if (getUserType(userTypeId).isPresent()){
+            userTypeRepository.delete(userTypeId);
+            return true;
+        }else {
+            return false;
+        }
     }
 }
