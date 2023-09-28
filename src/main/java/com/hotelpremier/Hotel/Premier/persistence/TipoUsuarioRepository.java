@@ -36,6 +36,7 @@ public class TipoUsuarioRepository implements UserTypeRepository {
         return mapper.toUserType(tipoUsuarioCrudRepository.save(tipo));
     }
 
+    @Override
     public void delete(int userTypeId){
         tipoUsuarioCrudRepository.deleteById(userTypeId);
     }
