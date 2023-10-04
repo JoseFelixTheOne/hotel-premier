@@ -7,4 +7,5 @@ import com.hotelpremier.Hotel.Premier.persistence.entity.TipoUsuarioMenu;
 import java.util.Optional;
 
 public interface TipoUsuarioMenuCrudRepository extends JpaRepository<TipoUsuarioMenu, Integer> {
+    //Optional<TipoUsuarioMenu>findBy
 }
