@@ -8,12 +8,14 @@ import org.mapstruct.Mapping;
 import java.util.List;
 import java.util.Map;
 
-@Mapper(componentModel =  "spring")
+@Mapper(componentModel =  "spring", uses = {UserTypeMapper.class, MenuMapper.class})
 public interface UserTypeMenuMapper {
 
     @Mapping(source = "idMenuTipoUsuario", target = "idUserTypeMenu")
     @Mapping(source = "idTipoUsuario", target = "idUserType")
     @Mapping(source = "idMenu", target = "idMenu")
+    @Mapping(source = "objTipoUsu", target = "userType")
+    @Mapping(source = "objMenu", target = "menu")
     UserTypeMenu userTypeMenu(TipoUsuarioMenu tipoUsuarioMenu);
 
     List<UserTypeMenu> userTypeMenus(List<TipoUsuarioMenu> tipoUsuarioMenus);
