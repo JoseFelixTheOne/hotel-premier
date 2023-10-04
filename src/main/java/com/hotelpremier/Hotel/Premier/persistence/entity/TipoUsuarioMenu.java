@@ -18,7 +18,6 @@ public class TipoUsuarioMenu {
     @Column(name = "id_menu")
     private int idMenu;
 
-
     @ManyToOne
     @JoinColumn(name = "id_tipouser", insertable = false, updatable = false)
     private TipoUsuario objTipoUsu;

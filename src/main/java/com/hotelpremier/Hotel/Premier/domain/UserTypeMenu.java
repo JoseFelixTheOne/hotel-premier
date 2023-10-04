@@ -9,6 +9,4 @@ public class UserTypeMenu {
     private int idUserTypeMenu;
     private int idUserType;
     private int idMenu;
-    private String nameMenu;
-    private String activeMenu;
 }
