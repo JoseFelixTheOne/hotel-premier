@@ -23,7 +23,7 @@ public class PasajeroRepository implements PassengerRepository {
     @Override
     public List<Passenger> getAll() {
         List<Pasajero> pasajeros = pasajeroCrudRepository.findAll();
-        return mapper.toPassenger(pasajeros);
+        return mapper.toPassengers(pasajeros);
     }
 
     @Override

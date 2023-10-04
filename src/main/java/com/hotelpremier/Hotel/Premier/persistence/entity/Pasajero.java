@@ -28,5 +28,9 @@ public class Pasajero {
     @Column(name = "telefono_pasajero")
     private String telefono;
     @Column(name = "activo_pasajero")
-    private int activo;
+    private String activo;
+
+    @ManyToOne
+    @JoinColumn(name = "id_tpodoc", insertable = false, updatable = false)
+    private TipoDocumento objTpoDoc;
 }

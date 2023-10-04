@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {DocTypeMapper.class})
 public interface PassengerMapper {
     @Mapping(source = "idpasajero",target = "idpas")
     @Mapping(source = "idtpodocumento", target = "idtpodoc")
@@ -19,8 +19,9 @@ public interface PassengerMapper {
     @Mapping(source = "correo", target = "email")
     @Mapping(source = "telefono", target = "phone")
     @Mapping(source = "activo", target = "active")
+    @Mapping(source = "objTpoDoc", target = "docType")
     Passenger toPassenger(Pasajero pasajero);
-    List<Passenger> toPassenger(List<Pasajero> pasajero);
+    List<Passenger> toPassengers(List<Pasajero> pasajero);
 
     @InheritInverseConfiguration
     Pasajero toPasajero(Passenger passenger);

@@ -14,5 +14,7 @@ public class Passenger {
     private String lastname2;
     private String email;
     private String phone;
-    private int active;
+    private String active;
+
+    private DocType docType;
 }
