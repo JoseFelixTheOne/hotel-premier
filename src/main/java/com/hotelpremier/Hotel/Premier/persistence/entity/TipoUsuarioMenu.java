@@ -17,8 +17,13 @@ public class TipoUsuarioMenu {
     private int idTipoUsuario;
     @Column(name = "id_menu")
     private int idMenu;
-    @Column(name = "nombre_menu")
-    private String nombreMenu;
-    @Column(name = "activo_menu")
-    private String activoMenu;
+
+
+    @ManyToOne
+    @JoinColumn(name = "id_tipouser", insertable = false, updatable = false)
+    private TipoUsuario objTipoUsu;
+
+    @ManyToOne
+    @JoinColumn(name = "id_menu", insertable = false, updatable = false)
+    private Menu objMenu;
 }
