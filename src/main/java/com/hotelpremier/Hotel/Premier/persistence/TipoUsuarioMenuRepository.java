@@ -8,6 +8,7 @@ import com.hotelpremier.Hotel.Premier.persistence.mapper.UserTypeMenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -37,5 +38,10 @@ public class TipoUsuarioMenuRepository implements UserTypeMenuRepository {
     @Override
     public void delete(int idUserTypeMenu) {
         tipoUsuarioMenuCrudRepository.deleteById(idUserTypeMenu);
+    }
+
+    @Override
+    public List<Map<String, Object>> getMenus(int idMenuTipoUsuario) {
+        return mapper.getMenus(idMenuTipoUsuario);
     }
 }

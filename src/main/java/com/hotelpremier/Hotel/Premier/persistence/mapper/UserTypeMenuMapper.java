@@ -6,6 +6,7 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import java.util.List;
+import java.util.Map;
 
 @Mapper(componentModel =  "spring")
 public interface UserTypeMenuMapper {
@@ -18,6 +19,8 @@ public interface UserTypeMenuMapper {
     UserTypeMenu userTypeMenu(TipoUsuarioMenu tipoUsuarioMenu);
 
     List<UserTypeMenu> userTypeMenus(List<TipoUsuarioMenu> tipoUsuarioMenus);
+
+    List<Map<String, Object>> getMenus(int idMenuTipoUsuario);
 
     @InheritInverseConfiguration
     TipoUsuarioMenu tipoUsuarioMenu(UserTypeMenu userTypeMenu);
