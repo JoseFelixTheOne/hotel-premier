@@ -9,4 +9,6 @@ public class UserTypeMenu {
     private int idUserTypeMenu;
     private int idUserType;
     private int idMenu;
+    private UserType userType;
+    private MenuD menu;
 }

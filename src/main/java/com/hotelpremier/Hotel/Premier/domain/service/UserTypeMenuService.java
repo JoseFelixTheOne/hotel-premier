@@ -15,16 +15,14 @@ import java.util.Optional;
 public class UserTypeMenuService {
     @Autowired
     private UserTypeMenuRepository userTypeMenuRepository;
-    private final JdbcTemplate jdbcTemplate;
-    @Autowired
-    public UserTypeMenuService(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
     public List<UserTypeMenu> getAll(){
         return userTypeMenuRepository.getAll();
     }
     public Optional<UserTypeMenu> getUserTypeMenu(int idMenuTipoUsuario){
         return userTypeMenuRepository.getUserTypeMenu(idMenuTipoUsuario);
+    }
+    public Optional<List<UserTypeMenu>> getRolesByUserType(int idUserType) {
+        return userTypeMenuRepository.getRolesByUserType(idUserType);
     }
     public UserTypeMenu save(UserTypeMenu userTypeMenu){
         return userTypeMenuRepository.save(userTypeMenu);

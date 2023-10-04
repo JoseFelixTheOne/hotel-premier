@@ -7,6 +7,7 @@ import java.util.Optional;
 public interface UserTypeMenuRepository {
     List<UserTypeMenu> getAll();
     Optional<UserTypeMenu> getUserTypeMenu(int idUserTypeMenu);
+    Optional<List<UserTypeMenu>> getRolesByUserType(int idUserType);
     UserTypeMenu save(UserTypeMenu userTypeMenu);
     void delete(int idUserTypeMenu);
 
