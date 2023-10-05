@@ -15,7 +15,7 @@ public class UserTypeController {
     @Autowired
     private UserTypeService userTypeService;
 
-    @GetMapping("")
+    @GetMapping({"", "/"})
     public ResponseEntity<List<UserType>> getAll(){
         return new ResponseEntity<>(userTypeService.getAll(), HttpStatus.OK);
     }
