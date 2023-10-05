@@ -15,7 +15,7 @@ public class UserTypeController {
     @Autowired
     private UserTypeService userTypeService;
 
-    @GetMapping("")
+    @GetMapping({"", "/"})
     public ResponseEntity<List<UserType>> getAll(){
         return new ResponseEntity<>(userTypeService.getAll(), HttpStatus.OK);
     }
@@ -34,7 +34,7 @@ public class UserTypeController {
 
     @PutMapping("/")
     public ResponseEntity<UserType> update(@RequestBody UserType userType) {
-        return new ResponseEntity<>(userTypeService.update(userType), HttpStatus.CREATED);
+        return new ResponseEntity<>(userTypeService.update(userType), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

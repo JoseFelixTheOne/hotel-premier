@@ -34,7 +34,7 @@ public class PassengerController {
 
     @PutMapping("/")
     public ResponseEntity<Passenger> update(@RequestBody Passenger passenger){
-        return new ResponseEntity<>(passengerService.update(passenger), HttpStatus.CREATED);
+        return new ResponseEntity<>(passengerService.update(passenger), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
