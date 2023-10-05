@@ -33,7 +33,7 @@ public class PassengerService {
             BeanUtils.copyProperties(passenger, p);
             return p;
         }).orElseThrow(() -> new EntityNotFoundException("Passenger not found with ID: " + idpas));
-        return passengerRepository.save(passenger);
+        return passengerRepository.save(pasajero);
     }
 
     public boolean delete(int idpas) {

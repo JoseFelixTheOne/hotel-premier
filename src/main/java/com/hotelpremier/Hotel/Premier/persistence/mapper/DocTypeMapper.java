@@ -13,7 +13,7 @@ public interface DocTypeMapper {
     @Mapping(source = "idTipoDoc", target = "idTypeDoc")
     @Mapping(source = "descripcion", target = "desc")
     DocType toDocType(TipoDocumento tipoDocumento);
-    List<DocType> toDocTypes(List<TipoDocumento> tipoDocumento);
+    List<DocType> toDocTypes(List<TipoDocumento> tipoDocumentos);
 
     @InheritInverseConfiguration
     TipoDocumento toTipoDocumento(DocType docType);
