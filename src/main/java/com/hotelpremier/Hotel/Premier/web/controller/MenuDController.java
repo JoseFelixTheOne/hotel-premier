@@ -31,7 +31,7 @@ public class MenuDController {
     }
     @PutMapping("/")
     public ResponseEntity<MenuD> update(@RequestBody MenuD menuD){
-        return new ResponseEntity<>(menuDService.update(menuD), HttpStatus.CREATED);
+        return new ResponseEntity<>(menuDService.update(menuD), HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
     public  ResponseEntity delete(@PathVariable("id") int menuId){

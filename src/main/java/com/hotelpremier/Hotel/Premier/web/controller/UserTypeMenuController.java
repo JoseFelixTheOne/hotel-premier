@@ -48,7 +48,7 @@ public class UserTypeMenuController {
 
     @PutMapping("/")
     public ResponseEntity<UserTypeMenu> update(@RequestBody UserTypeMenu userTypeMenu){
-        return new ResponseEntity(userTypeMenuService.update(userTypeMenu), HttpStatus.CREATED);
+        return new ResponseEntity<>(userTypeMenuService.update(userTypeMenu), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

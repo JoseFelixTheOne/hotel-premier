@@ -34,7 +34,7 @@ public class UserTypeController {
 
     @PutMapping("/")
     public ResponseEntity<UserType> update(@RequestBody UserType userType) {
-        return new ResponseEntity<>(userTypeService.update(userType), HttpStatus.CREATED);
+        return new ResponseEntity<>(userTypeService.update(userType), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

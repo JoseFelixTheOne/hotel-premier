@@ -34,7 +34,7 @@ public class DocTypeController {
 
     @PutMapping
     public ResponseEntity<DocType> update(@RequestBody DocType docType) {
-        return new ResponseEntity<>(docTypeService.update(docType), HttpStatus.CREATED);
+        return new ResponseEntity<>(docTypeService.update(docType), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
