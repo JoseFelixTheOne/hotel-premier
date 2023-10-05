@@ -34,7 +34,7 @@ public class UserController {
 
     @PutMapping("/")
     public ResponseEntity<User> update(@RequestBody User user) {
-        return new ResponseEntity<>(userService.update(user), HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.update(user), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
