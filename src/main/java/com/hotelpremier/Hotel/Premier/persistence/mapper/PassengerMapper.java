@@ -21,7 +21,7 @@ public interface PassengerMapper {
     @Mapping(source = "activo", target = "active")
     @Mapping(source = "objTpoDoc", target = "docType")
     Passenger toPassenger(Pasajero pasajero);
-    List<Passenger> toPassengers(List<Pasajero> pasajero);
+    List<Passenger> toPassengers(List<Pasajero> pasajeros);
 
     @InheritInverseConfiguration
     Pasajero toPasajero(Passenger passenger);

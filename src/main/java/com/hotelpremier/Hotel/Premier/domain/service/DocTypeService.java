@@ -33,7 +33,7 @@ public class DocTypeService {
             BeanUtils.copyProperties(docType, t);
             return t;
         }).orElseThrow(() -> new EntityNotFoundException("TypeDoc not found with ID: " + idTypeDoc));
-        return docTypeRepository.save(docType);
+        return docTypeRepository.save(tipodoc);
     }
 
     public boolean delete(int idTypeDoc) {
