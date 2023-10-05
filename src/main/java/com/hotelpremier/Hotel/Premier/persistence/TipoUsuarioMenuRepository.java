@@ -8,7 +8,6 @@ import com.hotelpremier.Hotel.Premier.persistence.mapper.UserTypeMenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -31,6 +30,12 @@ public class TipoUsuarioMenuRepository implements UserTypeMenuRepository {
     public Optional<List<UserTypeMenu>> getRolesByUserType(int idUserType) {
         return tipoUsuarioMenuCrudRepository.findByIdTipoUsuario(idUserType)
                 .map(menus -> mapper.userTypeMenus(menus));
+    }
+
+    @Override
+    public Optional<List<UserTypeMenu>> getRolesByMenu(int idMenu){
+        return tipoUsuarioMenuCrudRepository.findByIdMenu(idMenu)
+                .map(m -> mapper.userTypeMenus(m));
     }
 
     @Override

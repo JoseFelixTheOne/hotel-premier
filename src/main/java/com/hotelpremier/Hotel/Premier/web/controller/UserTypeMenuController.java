@@ -15,7 +15,7 @@ public class UserTypeMenuController {
     @Autowired
     private UserTypeMenuService userTypeMenuService;
 
-    @GetMapping("")
+    @GetMapping({"", "/"})
     public ResponseEntity<List<UserTypeMenu>> getAll(){
         return new ResponseEntity<>(userTypeMenuService.getAll(), HttpStatus.OK);
     }
@@ -30,6 +30,13 @@ public class UserTypeMenuController {
     @GetMapping("/usertype/{id}")
     public ResponseEntity<List<UserTypeMenu>> getRolesByUserType(@PathVariable("id") int idUserType){
         return userTypeMenuService.getRolesByUserType(idUserType)
+                .map(menus -> new ResponseEntity<>(menus, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/menu/{id}")
+    public ResponseEntity<List<UserTypeMenu>> getRolesByMenu(@PathVariable("id") int id){
+        return userTypeMenuService.getRolesByMenu(id)
                 .map(menus -> new ResponseEntity<>(menus, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
