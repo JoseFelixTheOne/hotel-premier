@@ -6,13 +6,16 @@ import com.hotelpremier.Hotel.Premier.persistence.crud.UsuarioCrudRepository;
 import com.hotelpremier.Hotel.Premier.persistence.entity.Usuario;
 import com.hotelpremier.Hotel.Premier.persistence.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UsuarioRepository implements UserRepository {
+public class UsuarioRepository implements UserRepository , UserDetailsService {
 
     @Autowired
     private UsuarioCrudRepository usuarioCrudRepository;
@@ -46,5 +49,10 @@ public class UsuarioRepository implements UserRepository {
     @Override
     public void delete(int iduser) {
         usuarioCrudRepository.deleteById(iduser);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
     }
 }
