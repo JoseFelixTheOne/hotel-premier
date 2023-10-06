@@ -41,6 +41,20 @@ public class UserTypeMenuController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/usertypeandmenu/{idUserType}/{idMenu}")
+    public ResponseEntity<List<UserTypeMenu>> getRolesByUserTypeAndMenu(@PathVariable("idUserType") int idUserType,@PathVariable("idMenu") int idMenu){
+        try{
+            return userTypeMenuService.getRolesByUserTypeAndMenu(idUserType, idMenu)
+                    .map(menus -> new ResponseEntity<>(menus, HttpStatus.OK))
+                    .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            System.out.println(e.getMessage().toString());
+            return null;
+        }
+    }
+
     @PostMapping
     public ResponseEntity<UserTypeMenu> save(@RequestBody UserTypeMenu userTypeMenu){
         return new ResponseEntity<>(userTypeMenuService.save(userTypeMenu), HttpStatus.CREATED);

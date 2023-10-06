@@ -28,6 +28,9 @@ public class UserTypeMenuService {
     public Optional<List<UserTypeMenu>> getRolesByMenu(int idMenu){
         return userTypeMenuRepository.getRolesByMenu(idMenu);
     }
+    public Optional<List<UserTypeMenu>> getRolesByUserTypeAndMenu(int idUserType, int idMenu){
+        return userTypeMenuRepository.getRolesByUserTypeAndMenu(idUserType, idMenu);
+    }
     public UserTypeMenu save(UserTypeMenu userTypeMenu){
         return userTypeMenuRepository.save(userTypeMenu);
     }
