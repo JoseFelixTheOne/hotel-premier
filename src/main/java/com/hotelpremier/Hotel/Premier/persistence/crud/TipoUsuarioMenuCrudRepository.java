@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface TipoUsuarioMenuCrudRepository extends JpaRepository<TipoUsuarioMenu, Integer> {
     Optional<List<TipoUsuarioMenu>> findByIdTipoUsuario(int idTipoUsuario);
     Optional<List<TipoUsuarioMenu>> findByIdMenu(int idMenu);
+    Optional<List<TipoUsuarioMenu>> findByIdTipoUsuarioAndIdMenu(int idUserType, int idMenu);
 }
