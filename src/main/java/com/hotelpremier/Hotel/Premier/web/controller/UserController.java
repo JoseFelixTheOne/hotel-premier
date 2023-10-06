@@ -17,6 +17,7 @@ public class UserController {
 
     @GetMapping("")
     public ResponseEntity<List<User>> getAll() {
+        System.out.println("Hola");
         return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 
@@ -24,6 +25,13 @@ public class UserController {
     public ResponseEntity<User> getUser(@PathVariable("id") int iduser) {
         return userService.getUser(iduser)
                 .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/{user}/{password}")
+    public ResponseEntity<User> getByUsuarioaccesoAndClave(@PathVariable("user") String user,@PathVariable("password") String password){
+        return userService.getByUsuarioaccesoAndClave(user, password)
+                .map(u -> new ResponseEntity<>(u, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 

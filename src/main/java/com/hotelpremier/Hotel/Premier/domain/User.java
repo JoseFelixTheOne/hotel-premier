@@ -14,4 +14,5 @@ public class User {
     private String active;
 
     private UserType objuserType;
+    private Passenger objPassenger;
 }

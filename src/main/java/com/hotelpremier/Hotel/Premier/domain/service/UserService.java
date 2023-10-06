@@ -23,6 +23,9 @@ public class UserService {
         return userRepository.getUser(iduser);
     }
 
+    public Optional<User> getByUsuarioaccesoAndClave(String user, String password){
+        return userRepository.getByUsuarioaccesoAndClave(user, password);
+    }
     public User save(User user) {
         return  userRepository.save(user);
     }

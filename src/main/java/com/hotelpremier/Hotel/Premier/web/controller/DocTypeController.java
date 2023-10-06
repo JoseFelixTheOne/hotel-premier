@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("doctype")
+@RequestMapping("/doctype")
 public class DocTypeController {
     @Autowired
     private DocTypeService docTypeService;

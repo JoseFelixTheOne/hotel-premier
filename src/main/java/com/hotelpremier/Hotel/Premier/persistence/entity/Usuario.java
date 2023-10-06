@@ -25,6 +25,10 @@ public class Usuario {
     private String activo;
 
     @ManyToOne
+    @JoinColumn(name = "id_pasajero", insertable = false, updatable = false)
+    private Pasajero objPasajero;
+
+    @ManyToOne
     @JoinColumn(name = "id_tipouser", insertable = false, updatable = false)
     private TipoUsuario objTpoUsuario;
 }

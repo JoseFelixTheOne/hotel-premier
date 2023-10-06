@@ -32,6 +32,12 @@ public class UsuarioRepository implements UserRepository {
     }
 
     @Override
+    public Optional<User> getByUsuarioaccesoAndClave(String user, String password) {
+        return usuarioCrudRepository.getByUsuarioaccesoAndClave(user, password)
+                .map(u -> mapper.toUser(u));
+    }
+
+    @Override
     public User save(User user) {
         Usuario usuario = mapper.toUsuario(user);
         return mapper.toUser(usuarioCrudRepository.save(usuario));

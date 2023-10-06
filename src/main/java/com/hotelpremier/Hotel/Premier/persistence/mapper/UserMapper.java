@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {UserTypeMapper.class})
+@Mapper(componentModel = "spring", uses = {UserTypeMapper.class, PassengerMapper.class})
 public interface UserMapper {
     @Mapping(source = "idusuario", target = "iduser")
     @Mapping(source = "idpasajero", target = "idpassenger")
@@ -17,6 +17,7 @@ public interface UserMapper {
     @Mapping(source = "tipousuario", target = "usertpe")
     @Mapping(source = "activo", target = "active")
     @Mapping(source = "objTpoUsuario", target = "objuserType")
+    @Mapping(source = "objPasajero", target = "objPassenger")
     User toUser(Usuario usuario);
 
     List<User> toUsers(List<Usuario> usuarios);

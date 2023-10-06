@@ -21,7 +21,7 @@ public class Pasajero {
     private String nombres;
     @Column(name = "apellidopaterno_pasajero")
     private String apellidopaterno;
-    @Column(name = "apellidomaterno_pasajero")
+    @Column(name = "apellidomaterno_pasajeron")
     private String apellidomaterno;
     @Column(name = "correo_pasajero")
     private String correo;
