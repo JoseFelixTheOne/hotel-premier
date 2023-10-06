@@ -16,8 +16,8 @@ public class UserController {
     private UserService userService;
 
 
+    @GetMapping({"", "/"})
     public ResponseEntity<List<User>> getAll() {
-        System.out.println("Hola");
         return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 
