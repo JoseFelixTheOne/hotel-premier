@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UsuarioRepository implements UserRepository , UserDetailsService {
+public class UsuarioRepository implements UserRepository{
 
     @Autowired
     private UsuarioCrudRepository usuarioCrudRepository;
@@ -49,10 +49,5 @@ public class UsuarioRepository implements UserRepository , UserDetailsService {
     @Override
     public void delete(int iduser) {
         usuarioCrudRepository.deleteById(iduser);
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
     }
 }
