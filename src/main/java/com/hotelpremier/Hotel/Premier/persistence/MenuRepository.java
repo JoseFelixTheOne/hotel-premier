@@ -29,10 +29,11 @@ public class MenuRepository implements MenuDRepository {
     }
     @Override
     public MenuD save(MenuD menuD) {
+        Menu menu = mapper.toMenu(menuD);
         return null;
     }
     @Override
     public void delete(int idMenu) {
-
+        menuCrudRepository.deleteById(idMenu);
     }
 }

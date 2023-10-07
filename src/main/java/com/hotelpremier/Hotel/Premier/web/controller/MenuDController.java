@@ -15,7 +15,7 @@ public class MenuDController {
     @Autowired
     private MenuDService menuDService;
 
-    @GetMapping("")
+    @GetMapping({"", "/"})
     public ResponseEntity<List<MenuD>> getAll(){
         return new ResponseEntity<>(menuDService.getAll(), HttpStatus.OK);
     }

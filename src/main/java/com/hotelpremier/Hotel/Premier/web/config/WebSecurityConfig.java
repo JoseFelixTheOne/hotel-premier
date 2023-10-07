@@ -23,6 +23,8 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 
 import javax.sql.DataSource;
 
@@ -30,6 +32,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig{
+    private SecurityContextRepository repo = new HttpSessionSecurityContextRepository();
 
     //Filtro de seguridad (Construyendo protección a vulnerabilidades con FormsHtml)
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
@@ -46,8 +49,14 @@ public class WebSecurityConfig{
                              // Eso indica que cualquiera puede entrar al Login
                 )
                 .sessionManagement( sm ->
-                        sm.sessionCreationPolicy(SessionCreationPolicy.ALWAYS) //Hace que se cree una sesión siempre y cuando no exista ninguna
+                        sm
+                                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS) //Hace que se cree una sesión siempre y cuando no exista ninguna
+                                .invalidSessionUrl("/login")
+                                .maximumSessions(1)
+                                .expiredUrl("/login")
                 )
+                .securityContext(sc ->
+                        sc.securityContextRepository(repo))
                 .rememberMe(Customizer.withDefaults());
         return http.build();
     }
@@ -56,5 +65,9 @@ public class WebSecurityConfig{
         return (((request, response, authentication) -> {
             response.sendRedirect("/index");//A dónde lo va a redirigir al validar la existencia del usuario
         }));
+    }
+
+    public AuthenticationManager authenticationManager(){
+        return authentication -> authentication;
     }
 }
