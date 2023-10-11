@@ -48,7 +48,7 @@ public class RoomController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/roomstatysandfloor/{roomStatusId}/{floorId}")
+    @GetMapping("/roomstatusandfloor/{roomStatusId}/{floorId}")
     public ResponseEntity<List<Room>> getRoomsByRoomStatusAndFloor(@PathVariable("roomStatusId") int roomStatusId,@PathVariable("floorId") int floorId){
         return roomService.getRoomsByRoomStatusAndFloor(roomStatusId, floorId)
                 .map(r -> new ResponseEntity<>(r, HttpStatus.OK))
@@ -69,14 +69,14 @@ public class RoomController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/roomstatysandfloorandroomtype/{roomStatusId}/{floorId}/{roomTypeId}")
+    @GetMapping("/roomstatusandfloorandroomtype/{roomStatusId}/{floorId}/{roomTypeId}")
     public ResponseEntity<List<Room>> getRoomsByRoomStatusAndFloorAndRoomType(@PathVariable("roomStatusId") int roomStatusId, @PathVariable("floorId") int floorId,@PathVariable("roomTypeId") int roomTypeId){
         return roomService.getRoomsByRoomStatusAndFloorAndRoomType(roomStatusId, floorId, roomTypeId)
                 .map(r -> new ResponseEntity<>(r, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<Room> save(@RequestBody Room room){
         return new ResponseEntity<>(roomService.save(room), HttpStatus.CREATED);
     }
