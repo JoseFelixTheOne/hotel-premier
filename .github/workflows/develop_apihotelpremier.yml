@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'ApiHotelPremier'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_721D4049989B4287B02D653D18DCDC7B }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0957350B516F41E58D5B51401E708765 }}
           package: '*.jar'
