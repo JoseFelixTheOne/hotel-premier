@@ -10,11 +10,10 @@ public class WebCorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("./../controller/")
+                registry.addMapping("/web/controller/**")
                         .allowedOrigins("http://localhost:4200")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .maxAge(3600);
-                WebMvcConfigurer.super.addCorsMappings(registry);
             }
         };
     }
