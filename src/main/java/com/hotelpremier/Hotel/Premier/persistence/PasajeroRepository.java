@@ -8,6 +8,7 @@ import com.hotelpremier.Hotel.Premier.persistence.mapper.PassengerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +23,18 @@ public class PasajeroRepository implements PassengerRepository {
 
     @Override
     public List<Passenger> getAll() {
-        List<Pasajero> pasajeros = pasajeroCrudRepository.findAll();
-        return mapper.toPassengers(pasajeros);
+        List<Pasajero> lista = new ArrayList<Pasajero>();
+        try {
+            var pasajeros = pasajeroCrudRepository.findAll();
+            for (Pasajero pasajero : pasajeros){
+                if(pasajero.getActivo().equals("a")) {
+                    lista.add(pasajero);
+                }
+            }
+        }catch (Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
+        return mapper.toPassengers(lista);
     }
 
     @Override
@@ -39,6 +50,9 @@ public class PasajeroRepository implements PassengerRepository {
 
     @Override
     public void delete(int idpas) {
-        pasajeroCrudRepository.deleteById(idpas);
+        Pasajero pasajero = pasajeroCrudRepository.findById(idpas).orElse(new Pasajero());
+        pasajero.setActivo("d");
+        pasajeroCrudRepository.save(pasajero);
+
     }
 }

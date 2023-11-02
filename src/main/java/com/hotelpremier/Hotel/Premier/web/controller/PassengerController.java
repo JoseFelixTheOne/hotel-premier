@@ -7,13 +7,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/passenger")
 public class PassengerController {
     @Autowired
     private PassengerService passengerService;
+
 
     @GetMapping("")
     public ResponseEntity<List<Passenger>> getAll() {
@@ -37,7 +40,7 @@ public class PassengerController {
         return new ResponseEntity<>(passengerService.update(passenger), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletepass/{id}")
     public ResponseEntity delete(@PathVariable("id") int idpas){
         return new ResponseEntity(passengerService.delete(idpas) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }

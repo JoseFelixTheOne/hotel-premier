@@ -8,6 +8,7 @@ import com.hotelpremier.Hotel.Premier.persistence.mapper.FloorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +22,18 @@ public class PisoRepository implements FloorRepository {
     private FloorMapper mapper;
     @Override
     public List<Floor> getAll() {
-        List<Piso> pisos = pisoCrudRepository.findAll();
-        return mapper.toFloors(pisos);
+        List<Piso> lista = new ArrayList<Piso>();
+        try {
+            var pisos = pisoCrudRepository.findAll();
+            for(Piso piso : pisos){
+                if(piso.getActivo().equals("a")){
+                    lista.add(piso);
+                }
+            }
+        }catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return mapper.toFloors(lista);
     }
 
     @Override
@@ -38,6 +49,8 @@ public class PisoRepository implements FloorRepository {
 
     @Override
     public void delete(int idfloor) {
-        pisoCrudRepository.deleteById(idfloor);
+        Piso piso = pisoCrudRepository.findById(idfloor).orElse(new Piso());
+        piso.setActivo("d");
+        pisoCrudRepository.save(piso);
     }
 }

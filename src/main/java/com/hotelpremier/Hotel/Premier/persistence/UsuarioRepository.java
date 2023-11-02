@@ -8,6 +8,7 @@ import com.hotelpremier.Hotel.Premier.persistence.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +23,18 @@ public class UsuarioRepository implements UserRepository {
 
     @Override
     public List<User> getAll() {
-        List<Usuario> usuarios = usuarioCrudRepository.findAll();
-        return mapper.toUsers(usuarios);
+        List<Usuario> lista = new ArrayList<Usuario>();
+        try {
+            var usuarios = usuarioCrudRepository.findAll();
+            for(Usuario usuario : usuarios) {
+                if(usuario.getActivo().equals("a")) {
+                    lista.add(usuario);
+                }
+            }
+        }catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return mapper.toUsers(lista);
     }
 
     @Override
@@ -45,6 +56,8 @@ public class UsuarioRepository implements UserRepository {
 
     @Override
     public void delete(int iduser) {
-        usuarioCrudRepository.deleteById(iduser);
+        Usuario usuario = usuarioCrudRepository.findById(iduser).orElse(new Usuario());
+        usuario.setActivo("d");
+        usuarioCrudRepository.save(usuario);
     }
 }

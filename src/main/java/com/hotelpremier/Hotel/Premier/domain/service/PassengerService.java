@@ -16,6 +16,7 @@ public class PassengerService {
     private PassengerRepository passengerRepository;
 
     public List<Passenger> getAll() {
+
         return passengerRepository.getAll();
     }
 
