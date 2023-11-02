@@ -8,6 +8,7 @@ import com.hotelpremier.Hotel.Premier.persistence.mapper.RoomTypeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +22,18 @@ public class TipoHabitacionRepository implements RoomTypeRepository {
 
     @Override
     public List<RoomType> getAll() {
-        List<TipoHabitacion> tipos = tipoHabitacionCrudRepository.findAll();
-        return mapper.toRoomTypes(tipos);
+        List<TipoHabitacion> lista = new ArrayList<TipoHabitacion>();
+        try {
+            var tipoHabitaciones = tipoHabitacionCrudRepository.findAll();
+            for (TipoHabitacion tipoHabitacion : tipoHabitaciones){
+                if(tipoHabitacion.getActivo().equals("a")){
+                    lista.add(tipoHabitacion);
+                }
+            }
+        }catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return mapper.toRoomTypes(lista);
     }
 
     @Override
@@ -38,6 +49,8 @@ public class TipoHabitacionRepository implements RoomTypeRepository {
 
     @Override
     public void delete(int idroomtype) {
-        tipoHabitacionCrudRepository.deleteById(idroomtype);
+        TipoHabitacion tipoHabitacion = tipoHabitacionCrudRepository.findById(idroomtype).orElse(new TipoHabitacion());
+        tipoHabitacion.setActivo("d");
+        tipoHabitacionCrudRepository.save(tipoHabitacion);
     }
 }

@@ -7,6 +7,8 @@ import com.hotelpremier.Hotel.Premier.persistence.entity.Habitacion;
 import com.hotelpremier.Hotel.Premier.persistence.mapper.RoomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +20,18 @@ public class HabitacionRepository implements RoomRepository {
     private RoomMapper mapper;
     @Override
     public List<Room> getAll() {
-        return mapper.toRooms(habitacionCrudRepository.findAll());
+        List<Habitacion> lista = new ArrayList<Habitacion>();
+        try {
+            var habitaciones = habitacionCrudRepository.findAll();
+            for (Habitacion habitacion : habitaciones) {
+                if(habitacion.getActivoHabitacion().equals("a")){
+                    lista.add(habitacion);
+                }
+            }
+        }catch (Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
+        return mapper.toRooms(lista);
     }
     @Override
     public Optional<Room> getRoomById(int roomId) {
@@ -66,6 +79,8 @@ public class HabitacionRepository implements RoomRepository {
     }
     @Override
     public void delete(int roomId) {
-        habitacionCrudRepository.deleteById(roomId);
+        Habitacion habitacion = habitacionCrudRepository.findById(roomId).orElse(new Habitacion());
+        habitacion.setActivoHabitacion("d");
+        habitacionCrudRepository.save(habitacion);
     }
 }
