@@ -6,7 +6,9 @@ import java.util.Optional;
 
 public interface MenuDRepository {
     List<MenuD> getAll();
-    Optional<MenuD> getMenu(int idMenu);
+    List<MenuD> getAllActive();
+    List<MenuD> getAllInactive();
+    Optional<MenuD> getMenuD(int menuId);
     MenuD save(MenuD menuD);
-    void delete(int idMenu);
+    void delete(int menuId);
 }

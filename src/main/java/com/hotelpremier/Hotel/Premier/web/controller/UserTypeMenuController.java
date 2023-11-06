@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/usertypemenu")
 public class UserTypeMenuController {
     @Autowired
@@ -43,16 +44,9 @@ public class UserTypeMenuController {
 
     @GetMapping("/usertypeandmenu/{idUserType}/{idMenu}")
     public ResponseEntity<List<UserTypeMenu>> getRolesByUserTypeAndMenu(@PathVariable("idUserType") int idUserType,@PathVariable("idMenu") int idMenu){
-        try{
-            return userTypeMenuService.getRolesByUserTypeAndMenu(idUserType, idMenu)
-                    .map(menus -> new ResponseEntity<>(menus, HttpStatus.OK))
-                    .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            System.out.println(e.getMessage().toString());
-            return null;
-        }
+        return userTypeMenuService.getRolesByUserTypeAndMenu(idUserType, idMenu)
+                .map(menus -> new ResponseEntity<>(menus, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
@@ -65,8 +59,9 @@ public class UserTypeMenuController {
         return new ResponseEntity<>(userTypeMenuService.update(userTypeMenu), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity delete(@PathVariable("id") int idUserTypeMenu){
-        return new ResponseEntity(userTypeMenuService.delete(idUserTypeMenu) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+        userTypeMenuService.delete(idUserTypeMenu);
+        return new ResponseEntity<>(userTypeMenuService.getAll(),HttpStatus.OK);
     }
 }
