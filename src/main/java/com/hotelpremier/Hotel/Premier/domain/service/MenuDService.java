@@ -17,26 +17,34 @@ public class MenuDService {
     public List<MenuD> getAll() {
         return menuDRepository.getAll();
     }
-    public Optional<MenuD> getMenuD(int idMenu){
-        return menuDRepository.getMenu(idMenu);
+    public List<MenuD> getAllActive() {
+        return menuDRepository.getAllActive();
+    }
+    public List<MenuD> getAllInactive() {
+        return menuDRepository.getAllInactive();
+    }
+    public Optional<MenuD> getMenuD(int menuId){
+        return menuDRepository.getMenu(menuId);
     }
     public MenuD save(MenuD menuD){
         return menuDRepository.save(menuD);
     }
     public MenuD update(MenuD menuD){
-        int idMenu = menuD.getMenuId();
-        MenuD menu1 = getMenuD(idMenu).map(m ->{
+        int menuId = menuD.getMenuId();
+        MenuD menu = getMenuD(menuId).map(m ->{
             BeanUtils.copyProperties(menuD, m);
             return m;
-        }).orElseThrow(() -> new EntityNotFoundException("Menu not found using ID: " + idMenu));
+        }).orElseThrow(() -> new EntityNotFoundException("Menu not found using ID: " + menuId));
         return menuDRepository.save(menuD);
     }
-    public boolean delete(int idMenu) {
-        if (getMenuD(idMenu).isPresent()) {
-            menuDRepository.delete(idMenu);
-            return true;
-        } else {
-            return false;
+    public void delete(int menuId) {
+        if (getMenuD(menuId).isPresent()) {
+            MenuD menuD = menuDRepository.getMenu(menuId).get();
+            menuD.setMenuActive("I");
+            menuDRepository.save(menuD);
+        }
+        else {
+            System.out.println("ERROR 404 : MENU NOT FOUND");
         }
     }
 }
