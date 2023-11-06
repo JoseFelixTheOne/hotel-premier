@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MenuCrudRepository  extends JpaRepository<Menu, Integer> {
-
-
     @Query(value = "SELECT * FROM tb_menu WHERE activo_menu = 'A'", nativeQuery = true)
     Optional<List<Menu>> findAllActive();
     @Query(value = "SELECT * FROM tb_menu WHERE activo_menu = 'I'", nativeQuery = true)

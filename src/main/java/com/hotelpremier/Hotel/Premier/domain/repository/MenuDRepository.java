@@ -8,7 +8,7 @@ public interface MenuDRepository {
     List<MenuD> getAll();
     List<MenuD> getAllActive();
     List<MenuD> getAllInactive();
-    Optional<MenuD> getMenu(int idMenu);
+    Optional<MenuD> getMenuD(int menuId);
     MenuD save(MenuD menuD);
-    void delete(int idMenu);
+    void delete(int menuId);
 }

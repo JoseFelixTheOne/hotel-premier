@@ -42,13 +42,13 @@ public class UserTypeMenuService {
         }).orElseThrow(() -> new EntityNotFoundException("UserType not found with ID: " + idUserTypeMenu));
         return userTypeMenuRepository.save(utm);
     }
-    public boolean delete(int idMenuTipoUsuario){
+    public void delete(int idMenuTipoUsuario){
         if(getUserTypeMenu(idMenuTipoUsuario).isPresent()){
-            userTypeMenuRepository.delete(idMenuTipoUsuario);
-            return true;
+            UserTypeMenu userTypeMenu = userTypeMenuRepository.getUserTypeMenu(idMenuTipoUsuario).get();
+            userTypeMenuRepository.save(userTypeMenu);
         }
         else{
-            return false;
+            System.out.println("ERROR 404 : USERTYPE MENU NOT FOUND");
         }
     }
 }
