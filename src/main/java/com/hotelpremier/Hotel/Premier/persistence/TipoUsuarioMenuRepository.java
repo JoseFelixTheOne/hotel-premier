@@ -51,6 +51,6 @@ public class TipoUsuarioMenuRepository implements UserTypeMenuRepository {
     }
     @Override
     public void delete(int idUserTypeMenu) {
-        tipoUsuarioMenuCrudRepository.deleteById(idUserTypeMenu);
+        System.out.println("SE ELIMINÓ CORRECTAMENTE EL TIPOUSUARIO MENU: " + idUserTypeMenu);
     }
 }

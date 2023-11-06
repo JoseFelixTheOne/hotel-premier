@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface RoomRepository {
     List<Room> getAll();
+    List<Room> getAllActive();
+    List<Room> getAllInactive();
     Optional<Room> getRoomById(int roomId);
     Optional<List<Room>> getRoomsByRoomStatus(int roomStatusId);
     Optional<List<Room>> getRoomsByFloor(int floorId);

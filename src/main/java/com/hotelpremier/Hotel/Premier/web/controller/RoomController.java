@@ -10,14 +10,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/room")
 public class RoomController {
     @Autowired
     private RoomService roomService;
 
     @GetMapping({"", "/"})
+    public ResponseEntity<List<Room>> getAllActive(){
+        return new ResponseEntity<>(roomService.getAllActive(), HttpStatus.OK);
+    }
+    @GetMapping("/inactive")
+    public ResponseEntity<List<Room>> getAllInactive(){
+        return new ResponseEntity<>(roomService.getAllActive(), HttpStatus.OK);
+    }
+    @GetMapping("/listAll")
     public ResponseEntity<List<Room>> getAll(){
-        return new ResponseEntity<>(roomService.getAll(), HttpStatus.OK);
+        return new ResponseEntity<>(roomService.getAllActive(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -87,7 +96,8 @@ public class RoomController {
     }
 
     @DeleteMapping("/{roomId}")
-    public ResponseEntity<Room> delete(@PathVariable("roomId") int roomId){
-        return new ResponseEntity<>(roomService.delete(roomId) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    public ResponseEntity<List<Room>> delete(@PathVariable("roomId") int roomId){
+        roomService.delete(roomId);
+        return new ResponseEntity<>(roomService.getAllActive(), HttpStatus.OK);
     }
 }

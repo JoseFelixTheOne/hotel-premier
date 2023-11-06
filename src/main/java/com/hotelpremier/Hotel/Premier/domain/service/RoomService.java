@@ -2,6 +2,7 @@ package com.hotelpremier.Hotel.Premier.domain.service;
 
 import com.hotelpremier.Hotel.Premier.domain.Room;
 import com.hotelpremier.Hotel.Premier.domain.repository.RoomRepository;
+import com.hotelpremier.Hotel.Premier.persistence.entity.Habitacion;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,12 @@ public class RoomService {
     public List<Room> getAll(){
         return roomRepository.getAll();
     }
+    public List<Room> getAllActive(){
+        return roomRepository.getAllActive();
+    }
+    public List<Room> getAllInactive(){
+        return roomRepository.getAllInactive();
+    }
     public Optional<Room> getRoomById(int roomId){
         return roomRepository.getRoomById(roomId);
     }
@@ -31,7 +38,7 @@ public class RoomService {
         return roomRepository.getRoomsByRoomType(roomTypeId);
     }
     public Optional<List<Room>> getRoomsByRoomStatusAndFloor(int roomStatusId, int floorId){
-        return roomRepository.getRoomsByRoomStatusAndRoomType(roomStatusId, floorId);
+        return roomRepository.getRoomsByRoomStatusAndFloor(roomStatusId, floorId);
     }
     public Optional<List<Room>> getRoomsByRoomStatusAndRoomType(int roomStatusId, int roomTypeId){
         return roomRepository.getRoomsByRoomStatusAndRoomType(roomStatusId, roomTypeId);
@@ -43,6 +50,7 @@ public class RoomService {
         return roomRepository.getRoomsByRoomStatusAndFloorAndRoomType(roomStatusId, floorId, roomTypeId);
     }
     public Room save(Room room){
+        room.setRoomActive("A");
         return roomRepository.save(room);
     }
     public Room update(Room room){
@@ -53,12 +61,14 @@ public class RoomService {
         }).orElseThrow(() -> new EntityNotFoundException("Room not found with ID: " + roomId));
         return roomRepository.save(r);
     }
-    public boolean delete(int roomId){
+    public void delete(int roomId){
         if(getRoomById(roomId).isPresent()) {
-            roomRepository.delete(roomId);
-            return true;
-        }else{
-            return false;
+            Room room = roomRepository.getRoomById(roomId).get();
+            room.setRoomActive("I");
+            roomRepository.save(room);
+        }
+        else{
+            System.out.println("ERROR 404 : ROOM NOT FOUND");
         }
     }
 }
