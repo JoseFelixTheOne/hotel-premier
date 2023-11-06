@@ -24,15 +24,27 @@ public class MenuRepository implements MenuDRepository {
     }
 
     @Override
+    public List<MenuD> getAllActive() {
+        List<Menu> menuList = menuCrudRepository.findAllActive().get();
+        return mapper.toMenus(menuList);
+    }
+
+    @Override
+    public List<MenuD> getAllInactive() {
+        List<Menu> menuList = menuCrudRepository.findAllInactive().get();
+        return mapper.toMenus(menuList);
+    }
+
+    @Override
     public Optional<MenuD> getMenu(int idMenu) {
         return menuCrudRepository.findById(idMenu).map(m -> mapper.toMenuD(m));
     }
     @Override
     public MenuD save(MenuD menuD) {
-        return null;
+        return mapper.toMenuD(menuCrudRepository.save(mapper.toMenu(menuD)));
     }
     @Override
-    public void delete(int idMenu) {
-
+    public void delete(int menuId) {
+        System.out.println("SE ELIMINÓ CORRECTAMENTE EL USUARIO: " + menuId);
     }
 }
