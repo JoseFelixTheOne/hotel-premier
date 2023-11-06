@@ -8,6 +8,7 @@ import com.hotelpremier.Hotel.Premier.persistence.mapper.UserTypeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +22,18 @@ public class TipoUsuarioRepository implements UserTypeRepository {
 
     @Override
     public List<UserType> getAll(){
-        List<TipoUsuario> tipos = tipoUsuarioCrudRepository.findAll();
-        return mapper.toUserTypes(tipos);
+        List<TipoUsuario> lista = new ArrayList<TipoUsuario>();
+        try {
+            var tipoUsuarios = tipoUsuarioCrudRepository.findAll();
+            for (TipoUsuario tipoUsuario : tipoUsuarios){
+                if(tipoUsuario.getActivoTipouser().equals("a")){
+                    lista.add(tipoUsuario);
+                }
+            }
+        }catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return mapper.toUserTypes(lista);
     }
 
     @Override
@@ -38,6 +49,8 @@ public class TipoUsuarioRepository implements UserTypeRepository {
 
     @Override
     public void delete(int userTypeId){
-        tipoUsuarioCrudRepository.deleteById(userTypeId);
+        TipoUsuario tipoUsuario = tipoUsuarioCrudRepository.findById(userTypeId).orElse(new TipoUsuario());
+        tipoUsuario.setActivoTipouser("d");
+        tipoUsuarioCrudRepository.save(tipoUsuario);
     }
 }
