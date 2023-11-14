@@ -19,7 +19,6 @@ public class UsuarioRepository implements UserRepository{
 
     @Autowired
     private UsuarioCrudRepository usuarioCrudRepository;
-
     @Autowired
     private UserMapper mapper;
 
@@ -30,14 +29,36 @@ public class UsuarioRepository implements UserRepository{
     }
 
     @Override
+    public List<User> getAllActive() {
+        List<Usuario> usuarios = usuarioCrudRepository.findAllActive().get();
+        return mapper.toUsers(usuarios);
+    }
+
+    @Override
+    public List<User> getAllInactive() {
+        List<Usuario> usuarios = usuarioCrudRepository.findAllInactive().get();
+        return mapper.toUsers(usuarios);
+    }
+
+    @Override
     public Optional<User> getUser(int iduser) {
         return usuarioCrudRepository.findById(iduser).map(usuario -> mapper.toUser(usuario));
     }
 
     @Override
-    public Optional<User> getByUsuarioaccesoAndClave(String user, String password) {
-        return usuarioCrudRepository.getByUsuarioaccesoAndClave(user, password)
-                .map(u -> mapper.toUser(u));
+    public Optional<User> getByUserusuarioAndClave(String user, String password) {
+        return usuarioCrudRepository.findByUserusuarioAndClave(user, password).map(usuario-> mapper.toUser(usuario));
+    }
+
+    @Override
+    public Optional<User> getUserForLogin(String user) {
+        return usuarioCrudRepository.getUserForLogin(user).map(usuario -> mapper.toUser(usuario));
+    }
+
+    @Override
+    public List<User> getByNombreusuario(String user){
+        List<Usuario> usuarios = usuarioCrudRepository.findByNombreusuario(user).get();
+        return mapper.toUsers(usuarios);
     }
 
     @Override
@@ -48,6 +69,6 @@ public class UsuarioRepository implements UserRepository{
 
     @Override
     public void delete(int iduser) {
-        usuarioCrudRepository.deleteById(iduser);
+        System.out.println("SE ELIMINÓ CORRECTAMENTE AL USUARIO CON ID: " + iduser);
     }
 }
