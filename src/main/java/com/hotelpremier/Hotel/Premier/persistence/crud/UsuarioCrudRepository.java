@@ -17,10 +17,7 @@ public interface UsuarioCrudRepository extends JpaRepository<Usuario, Integer> {
     Optional<List<Usuario>> findAllActive();
     @Query(value = "SELECT * FROM tb_usuario WHERE activo_usuario = 'I'", nativeQuery = true)
     Optional<List<Usuario>> findAllInactive();
-
-    ////////////////////////////////
     Boolean existsByUsuarioacceso(String usuarioacceso);
-
     Boolean existsByIdpasajero(int idpasajero);
 
 }
