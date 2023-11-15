@@ -44,4 +44,7 @@ public class PassengerService {
             return false;
         }
     }
+    public boolean existsById(int idpas){
+        return passengerRepository.existsById(idpas);
+    }
 }

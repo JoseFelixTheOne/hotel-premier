@@ -22,6 +22,9 @@ public class UserTypeService {
     public Optional<UserType> getUserType(int userTypeId) {
         return userTypeRepository.getUserType(userTypeId);
     }
+    public Optional<UserType> getUserTypeByName(String name){
+        return userTypeRepository.getUserTypeByName(name);
+    }
 
     public UserType save(UserType userType) {
         return userTypeRepository.save(userType);

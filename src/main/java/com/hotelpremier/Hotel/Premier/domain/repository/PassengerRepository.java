@@ -10,4 +10,5 @@ public interface PassengerRepository {
     Optional<Passenger> getPassenger(int idpas);
     Passenger save(Passenger passenger);
     void delete(int idpas);
+    boolean existsById(int idpas);
 }

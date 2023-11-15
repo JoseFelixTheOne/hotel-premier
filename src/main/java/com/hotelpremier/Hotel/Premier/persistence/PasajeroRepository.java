@@ -13,32 +13,30 @@ import java.util.Optional;
 
 @Repository
 public class PasajeroRepository implements PassengerRepository {
-
     @Autowired
     private PasajeroCrudRepository pasajeroCrudRepository;
-
     @Autowired
     private PassengerMapper mapper;
-
     @Override
     public List<Passenger> getAll() {
         List<Pasajero> pasajeros = pasajeroCrudRepository.findAll();
         return mapper.toPassengers(pasajeros);
     }
-
     @Override
     public Optional<Passenger> getPassenger(int idpas) {
         return pasajeroCrudRepository.findById(idpas).map(pasajero -> mapper.toPassenger(pasajero));
     }
-
     @Override
     public Passenger save(Passenger passenger) {
         Pasajero pasajero = mapper.toPasajero(passenger);
         return mapper.toPassenger(pasajeroCrudRepository.save(pasajero));
     }
-
     @Override
     public void delete(int idpas) {
         pasajeroCrudRepository.deleteById(idpas);
+    }
+    @Override
+    public boolean existsById(int idpas) {
+        return pasajeroCrudRepository.existsById(idpas);
     }
 }

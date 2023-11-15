@@ -15,14 +15,11 @@ public interface UserRepository {
 
     Optional<User> getUser(int iduser);
 
-    Optional<User> getByUserusuarioAndClave(String username, String password);
-
-    Optional<User> getUserForLogin(String user);
-
     List<User> getByNombreusuario(String user);
 
     User save(User user);
 
     void delete(int iduser);
-    Boolean existsByUserusuario(String username);
+    boolean existsByUsuarioacceso(String username);
+    boolean existsByIdpasajero(int idpasajero);
 }

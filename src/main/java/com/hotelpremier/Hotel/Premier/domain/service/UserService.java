@@ -15,10 +15,6 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-    /*private BCryptPasswordEncoder passwordEncoder;
-    public UserService(BCryptPasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }*/
     public List<User> getAll(){
         System.out.println("FALTA IMPLEMENTAR USER SERVICE");
         return userRepository.getAll();
@@ -36,32 +32,11 @@ public class UserService {
         return userRepository.getUser(iduser);
     }
 
-    public Optional<User> getByUserusuarioAndClaveUsuario(String user, String password){
-        /*String encryptedPsw = passwordEncoder.encode(password);
-        try{
-            User u = userRepository.getUserForLogin(user).get();
-            System.out.println(passwordEncoder.matches(password, encryptedPsw));
-            if(passwordEncoder.matches(password, u.getPassword())){
-                return userRepository.getByUserusuarioAndClave(user, u.getPassword());
-            }
-            else {
-                return null;
-            }
-        }
-        catch (NullPointerException e){
-            System.out.println(e.getCause() + "\n" + e.getMessage());
-            return null;
-        }*/
-        System.out.println("FALTA IMPLEMENTAR USER SERVICE");
-        return null;
-    }
     public List<User> getByNombreusuario(String username){
         return userRepository.getByNombreusuario(username);
     }
 
     public User save(User user) {
-        /*String encryptedPsw = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encryptedPsw);*/
         user.setActive("A");
         return userRepository.save(user);
     }
@@ -84,5 +59,13 @@ public class UserService {
         else {
             System.out.println("ERROR 404 : USER NOT FOUND");
         }
+    }
+
+    public boolean existsByUsuarioacceso (String username){
+        return userRepository.existsByUsuarioacceso(username);
+    }
+
+    public boolean existsByIdpasajero(int idpasajero){
+        return userRepository.existsByIdpasajero(idpasajero);
     }
 }
