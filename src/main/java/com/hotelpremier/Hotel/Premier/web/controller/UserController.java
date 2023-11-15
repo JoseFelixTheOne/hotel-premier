@@ -2,9 +2,15 @@ package com.hotelpremier.Hotel.Premier.web.controller;
 
 import com.hotelpremier.Hotel.Premier.domain.User;
 import com.hotelpremier.Hotel.Premier.domain.service.UserService;
+import com.hotelpremier.Hotel.Premier.persistence.crud.TipoUsuarioCrudRepository;
+import com.hotelpremier.Hotel.Premier.persistence.crud.UsuarioCrudRepository;
+import com.hotelpremier.Hotel.Premier.web.security.JwtGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

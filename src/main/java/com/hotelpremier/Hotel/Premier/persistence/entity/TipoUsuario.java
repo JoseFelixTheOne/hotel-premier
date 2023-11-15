@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tb_tipousuario")
 @Getter
@@ -18,4 +20,5 @@ public class TipoUsuario {
     private String nombreTipouser;
     @Column(name = "activo_tipouser")
     private String activoTipouser;
+
 }

@@ -1,6 +1,7 @@
 package com.hotelpremier.Hotel.Premier.domain.repository;
 
 import com.hotelpremier.Hotel.Premier.domain.User;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,4 +24,5 @@ public interface UserRepository {
     User save(User user);
 
     void delete(int iduser);
+    Boolean existsByUserusuario(String username);
 }

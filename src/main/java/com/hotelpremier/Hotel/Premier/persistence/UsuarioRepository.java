@@ -50,6 +50,7 @@ public class UsuarioRepository implements UserRepository{
         return usuarioCrudRepository.findByUserusuarioAndClave(user, password).map(usuario-> mapper.toUser(usuario));
     }
 
+
     @Override
     public Optional<User> getUserForLogin(String user) {
         return usuarioCrudRepository.getUserForLogin(user).map(usuario -> mapper.toUser(usuario));
@@ -70,5 +71,10 @@ public class UsuarioRepository implements UserRepository{
     @Override
     public void delete(int iduser) {
         System.out.println("SE ELIMINÓ CORRECTAMENTE AL USUARIO CON ID: " + iduser);
+    }
+
+    @Override
+    public Boolean existsByUserusuario(String username) {
+        return usuarioCrudRepository.existsByUsuarioacceso(username);
     }
 }

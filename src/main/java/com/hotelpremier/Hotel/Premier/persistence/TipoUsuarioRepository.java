@@ -4,6 +4,7 @@ import com.hotelpremier.Hotel.Premier.domain.UserType;
 import com.hotelpremier.Hotel.Premier.domain.repository.UserTypeRepository;
 import com.hotelpremier.Hotel.Premier.persistence.crud.TipoUsuarioCrudRepository;
 import com.hotelpremier.Hotel.Premier.persistence.entity.TipoUsuario;
+import com.hotelpremier.Hotel.Premier.persistence.entity.Usuario;
 import com.hotelpremier.Hotel.Premier.persistence.mapper.UserTypeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,6 +29,11 @@ public class TipoUsuarioRepository implements UserTypeRepository {
     @Override
     public Optional<UserType> getUserType(int userTypeId) {
         return tipoUsuarioCrudRepository.findById(userTypeId).map(tipo -> mapper.toUserType(tipo));
+    }
+
+    @Override
+    public Optional<UserType> getUserTypeByName(String name) {
+        return tipoUsuarioCrudRepository.getUserTypeByName(name).map(usuario -> mapper.toUserType(usuario));
     }
 
     @Override

@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "tb_usuario")
 @Getter
@@ -31,4 +34,5 @@ public class Usuario {
     @ManyToOne
     @JoinColumn(name = "id_tipouser", insertable = false, updatable = false)
     private TipoUsuario objTpoUsuario;
+
 }
