@@ -1,7 +1,6 @@
 package com.hotelpremier.Hotel.Premier.domain.repository;
 
 import com.hotelpremier.Hotel.Premier.domain.Floor;
-
 import java.util.List;
 import java.util.Optional;
 

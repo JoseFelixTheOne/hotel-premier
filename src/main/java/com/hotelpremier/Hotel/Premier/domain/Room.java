@@ -3,9 +3,6 @@ package com.hotelpremier.Hotel.Premier.domain;
 import com.hotelpremier.Hotel.Premier.persistence.entity.EstadoHabitacion;
 import com.hotelpremier.Hotel.Premier.persistence.entity.Piso;
 import com.hotelpremier.Hotel.Premier.persistence.entity.TipoHabitacion;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -25,25 +25,21 @@ public class TipoUsuarioMenuRepository implements UserTypeMenuRepository {
     public Optional<UserTypeMenu> getUserTypeMenu(int idUserTypeMenu) {
         return tipoUsuarioMenuCrudRepository.findById(idUserTypeMenu).map(menus -> mapper.userTypeMenu(menus));
     }
-
     @Override
     public Optional<List<UserTypeMenu>> getRolesByUserType(int idUserType) {
         return tipoUsuarioMenuCrudRepository.findByIdTipoUsuario(idUserType)
                 .map(menus -> mapper.userTypeMenus(menus));
     }
-
     @Override
     public Optional<List<UserTypeMenu>> getRolesByMenu(int idMenu){
         return tipoUsuarioMenuCrudRepository.findByIdMenu(idMenu)
                 .map(m -> mapper.userTypeMenus(m));
     }
-
     @Override
     public Optional<List<UserTypeMenu>> getRolesByUserTypeAndMenu(int idUserType, int idMenu) {
         return tipoUsuarioMenuCrudRepository.findByIdTipoUsuarioAndIdMenu(idUserType,idMenu)
                 .map(m -> mapper.userTypeMenus(m));
     }
-
     @Override
     public UserTypeMenu save(UserTypeMenu userTypeMenu) {
         TipoUsuarioMenu menus = mapper.tipoUsuarioMenu(userTypeMenu);

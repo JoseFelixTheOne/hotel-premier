@@ -7,7 +7,6 @@ import com.hotelpremier.Hotel.Premier.persistence.entity.Pasajero;
 import com.hotelpremier.Hotel.Premier.persistence.mapper.PassengerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 

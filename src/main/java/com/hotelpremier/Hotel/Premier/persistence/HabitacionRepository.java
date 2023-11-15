@@ -3,7 +3,6 @@ package com.hotelpremier.Hotel.Premier.persistence;
 import com.hotelpremier.Hotel.Premier.domain.Room;
 import com.hotelpremier.Hotel.Premier.domain.repository.RoomRepository;
 import com.hotelpremier.Hotel.Premier.persistence.crud.HabitacionCrudRepository;
-import com.hotelpremier.Hotel.Premier.persistence.entity.Habitacion;
 import com.hotelpremier.Hotel.Premier.persistence.mapper.RoomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

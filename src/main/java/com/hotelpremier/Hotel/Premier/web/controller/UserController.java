@@ -42,7 +42,6 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private JwtGenerator jwtGenerator;
-
     //Listado de activos
     @GetMapping({"", "/"})
     public ResponseEntity<List<User>> getAllActive() {
@@ -72,7 +71,6 @@ public class UserController {
 
     }
     //Registro de Usuario
-
     @PostMapping("/")
     public ResponseEntity<String> save(@RequestBody DtoRegistro dtoRegistro){
         boolean userexists = userService.existsByUsuarioacceso(dtoRegistro.getUsername());
@@ -94,7 +92,6 @@ public class UserController {
         Optional<UserType> tipoUsuario = userTypeService.getUserType(dtoRegistro.getUsertpe());
         user.setUsertpe(tipoUsuario.get().getUserTypeId());
         userService.save(user);
-
         return new ResponseEntity<>("Usuario creado", HttpStatus.CREATED);
     }
     //Logueo y Generación de Token
@@ -104,7 +101,6 @@ public class UserController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtGenerator.generarToken(authentication);
         return new ResponseEntity<>(new DtoAuthResponse(token), HttpStatus.OK);
-
     }
     //Actualización de Usuario
     @PutMapping("/")

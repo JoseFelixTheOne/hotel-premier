@@ -6,18 +6,15 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-
 import java.util.Date;
 
 @Component
 public class JwtGenerator {
-
     //Método para crear un token por medio de la autenticación
     public String generarToken(Authentication authentication){
         String username = authentication.getName();
         Date tiempoActual = new Date();
         Date expiracionToken = new Date(tiempoActual.getTime() + ConstantsSecurity.JWT_EXPIRATION_TOKEN);
-
         //Linea para generar el token
         String token = Jwts.builder() //Construimos un token JWT llamado token
                 .setSubject(username) //Acá establecemos el nombre de usuario que ha iniciado sesión
@@ -27,7 +24,6 @@ public class JwtGenerator {
                 .compact(); //Finaliza la construcción del token y lo devuelve como un String compacto
         return token;
     }
-
     //Metodo para extraer un Username a partir de un Token
     public String obtenerUsernameDeJwt(String token){
         Claims claims = Jwts.parser() // El método parser se utiliza con el fin de analuzar el token
@@ -36,7 +32,6 @@ public class JwtGenerator {
                 .getBody(); //Obtiene el cuerpo del token (username, fecha de creación, fecha de expiración, etc)
         return claims.getSubject(); // Devolvemos el username
     }
-
     //Método para validar el token
     public Boolean validarToken(String token){
         try{

@@ -6,7 +6,6 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -14,19 +13,15 @@ import java.util.Optional;
 public class DocTypeService {
     @Autowired
     private DocTypeRepository docTypeRepository;
-
     public List<DocType> getAll() {
         return docTypeRepository.getAll();
     }
-
     public Optional<DocType> getDocType(int idTypeDoc) {
         return docTypeRepository.getDocType(idTypeDoc);
     }
-
     public DocType save(DocType docType) {
         return docTypeRepository.save(docType);
     }
-
     public DocType update(DocType docType) {
         int idTypeDoc = docType.getIdTypeDoc();
         DocType tipodoc = getDocType(idTypeDoc).map(t ->{
@@ -35,7 +30,6 @@ public class DocTypeService {
         }).orElseThrow(() -> new EntityNotFoundException("TypeDoc not found with ID: " + idTypeDoc));
         return docTypeRepository.save(tipodoc);
     }
-
     public boolean delete(int idTypeDoc) {
         if (getDocType(idTypeDoc).isPresent()) {
             docTypeRepository.delete(idTypeDoc);

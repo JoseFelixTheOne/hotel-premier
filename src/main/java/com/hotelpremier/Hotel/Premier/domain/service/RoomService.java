@@ -6,7 +6,6 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +13,6 @@ import java.util.Optional;
 public class RoomService {
     @Autowired
     private RoomRepository roomRepository;
-
     public List<Room> getAll(){
         return roomRepository.getAll();
     }
@@ -31,7 +29,7 @@ public class RoomService {
         return roomRepository.getRoomsByRoomType(roomTypeId);
     }
     public Optional<List<Room>> getRoomsByRoomStatusAndFloor(int roomStatusId, int floorId){
-        return roomRepository.getRoomsByRoomStatusAndRoomType(roomStatusId, floorId);
+        return roomRepository.getRoomsByRoomStatusAndFloor(roomStatusId, floorId);
     }
     public Optional<List<Room>> getRoomsByRoomStatusAndRoomType(int roomStatusId, int roomTypeId){
         return roomRepository.getRoomsByRoomStatusAndRoomType(roomStatusId, roomTypeId);
