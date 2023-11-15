@@ -79,7 +79,7 @@ public class UserController {
         boolean passengerexists = passengerService.existsById(dtoRegistro.getIdpassenger());
         boolean passengerhasuser = userService.existsByIdpasajero(dtoRegistro.getIdpassenger());
         if(userexists){
-            return new ResponseEntity<>("El usuario ya existe", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("El nombre de usuario ya existe", HttpStatus.BAD_REQUEST);
         }
         else if (!passengerexists){
             return new ResponseEntity<>("El pasajero no existe", HttpStatus.BAD_REQUEST);
