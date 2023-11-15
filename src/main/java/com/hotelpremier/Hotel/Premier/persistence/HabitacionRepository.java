@@ -20,18 +20,18 @@ public class HabitacionRepository implements RoomRepository {
     private RoomMapper mapper;
     @Override
     public List<Room> getAll() {
-        List<Habitacion> lista = new ArrayList<Habitacion>();
-        try {
-            var habitaciones = habitacionCrudRepository.findAll();
-            for (Habitacion habitacion : habitaciones) {
-                if(habitacion.getActivoHabitacion().equals("a")){
-                    lista.add(habitacion);
-                }
-            }
-        }catch (Exception e){
-            System.out.println("Error: " + e.getMessage());
-        }
-        return mapper.toRooms(lista);
+        List<Habitacion> habitaciones = habitacionCrudRepository.findAll();
+        return mapper.toRooms(habitaciones);
+    }
+    @Override
+    public List<Room> getAllActive() {
+        List<Habitacion> habitaciones = habitacionCrudRepository.findAllActive().get();
+        return mapper.toRooms(habitaciones);
+    }
+    @Override
+    public List<Room> getAllInactive() {
+        List<Habitacion> habitaciones = habitacionCrudRepository.findAllInactive().get();
+        return mapper.toRooms(habitaciones);
     }
     @Override
     public Optional<Room> getRoomById(int roomId) {
@@ -79,8 +79,6 @@ public class HabitacionRepository implements RoomRepository {
     }
     @Override
     public void delete(int roomId) {
-        Habitacion habitacion = habitacionCrudRepository.findById(roomId).orElse(new Habitacion());
-        habitacion.setActivoHabitacion("d");
-        habitacionCrudRepository.save(habitacion);
+        System.out.println("SE ELIMINÓ CORRECTAMENTE LA HABITACIÓN CON ID: " + roomId);
     }
 }

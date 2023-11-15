@@ -5,8 +5,6 @@ import com.hotelpremier.Hotel.Premier.persistence.entity.Habitacion;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.springframework.data.querydsl.QSort;
-
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {EstateRoomMapper.class, FloorMapper.class, RoomTypeMapper.class})

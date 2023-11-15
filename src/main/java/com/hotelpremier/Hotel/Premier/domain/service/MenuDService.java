@@ -13,7 +13,6 @@ import java.util.Optional;
 public class MenuDService {
     @Autowired
     private MenuDRepository menuDRepository;
-
     public List<MenuD> getAll() {
         return menuDRepository.getAll();
     }

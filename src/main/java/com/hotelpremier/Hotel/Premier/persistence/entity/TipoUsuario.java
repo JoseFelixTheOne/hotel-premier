@@ -18,4 +18,5 @@ public class TipoUsuario {
     private String nombreTipouser;
     @Column(name = "activo_tipouser")
     private String activoTipouser;
+
 }

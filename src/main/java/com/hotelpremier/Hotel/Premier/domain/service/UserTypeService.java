@@ -6,7 +6,6 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -14,19 +13,18 @@ import java.util.Optional;
 public class UserTypeService {
     @Autowired
     private UserTypeRepository userTypeRepository;
-
     public List<UserType> getAll(){
         return userTypeRepository.getAll();
     }
-
     public Optional<UserType> getUserType(int userTypeId) {
         return userTypeRepository.getUserType(userTypeId);
     }
-
+    public Optional<UserType> getUserTypeByName(String name){
+        return userTypeRepository.getUserTypeByName(name);
+    }
     public UserType save(UserType userType) {
         return userTypeRepository.save(userType);
     }
-
     public UserType update(UserType userType){
         int userTypeId = userType.getUserTypeId();
         UserType type = getUserType(userTypeId).map(t ->{

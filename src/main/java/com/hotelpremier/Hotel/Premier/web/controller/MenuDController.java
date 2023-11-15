@@ -6,16 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/menus")
 public class MenuDController {
     @Autowired
     private MenuDService menuDService;
-
-    @GetMapping("")
+    @GetMapping({"", "/"})
     public ResponseEntity<List<MenuD>> getAll(){
         return new ResponseEntity<>(menuDService.getAll(), HttpStatus.OK);
     }
@@ -35,7 +34,7 @@ public class MenuDController {
     }
     @DeleteMapping("/{id}")
     public  ResponseEntity delete(@PathVariable("id") int menuId){
-        return new ResponseEntity(menuDService.delete(menuId) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+        menuDService.delete(menuId);
+        return new ResponseEntity<>(menuDService.getAllActive(), HttpStatus.OK);
     }
-
 }

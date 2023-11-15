@@ -5,10 +5,8 @@ import com.hotelpremier.Hotel.Premier.domain.repository.UserTypeMenuRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -24,7 +22,6 @@ public class UserTypeMenuService {
     public Optional<List<UserTypeMenu>> getRolesByUserType(int idUserType) {
         return userTypeMenuRepository.getRolesByUserType(idUserType);
     }
-
     public Optional<List<UserTypeMenu>> getRolesByMenu(int idMenu){
         return userTypeMenuRepository.getRolesByMenu(idMenu);
     }

@@ -6,7 +6,6 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -14,19 +13,15 @@ import java.util.Optional;
 public class FloorService {
     @Autowired
     private FloorRepository floorRepository;
-
     public List<Floor> getAll() {
         return floorRepository.getAll();
     }
-
     public Optional<Floor> getFloor(int idfloor) {
         return  floorRepository.getFloor(idfloor);
     }
-
     public Floor save(Floor floor) {
         return floorRepository.save(floor);
     }
-
     public Floor update(Floor floor) {
         int idfloor = floor.getIdfloor();
         Floor piso = getFloor(idfloor).map(f -> {
@@ -35,7 +30,6 @@ public class FloorService {
         }).orElseThrow(() -> new EntityNotFoundException("Floor not found with ID: " + idfloor));
         return floorRepository.save(piso);
     }
-
     public boolean delete(int idfloor) {
         if(getFloor(idfloor).isPresent()) {
             floorRepository.delete(idfloor);
