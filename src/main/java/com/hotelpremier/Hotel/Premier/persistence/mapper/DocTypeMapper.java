@@ -11,6 +11,7 @@ import java.util.List;
 public interface DocTypeMapper {
     @Mapping(source = "idTipoDoc", target = "idTypeDoc")
     @Mapping(source = "descripcion", target = "desc")
+    @Mapping(source = "activo", target = "active")
     DocType toDocType(TipoDocumento tipoDocumento);
     List<DocType> toDocTypes(List<TipoDocumento> tipoDocumentos);
 

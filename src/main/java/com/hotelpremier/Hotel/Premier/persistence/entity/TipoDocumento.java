@@ -12,7 +12,8 @@ public class TipoDocumento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tpodoc")
-    private int idTipoDoc;
+    private Integer idTipoDoc;
     @Column(name = "nombre_tpodoc")
     private String descripcion;
+    private String activo;
 }

@@ -23,6 +23,8 @@ public class UserTypeService {
         return userTypeRepository.getUserTypeByName(name);
     }
     public UserType save(UserType userType) {
+        userType.setUserTypeId(null);
+        userType.setActive("a");
         return userTypeRepository.save(userType);
     }
     public UserType update(UserType userType){

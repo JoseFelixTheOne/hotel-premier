@@ -10,13 +10,15 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/doctype")
+@RequestMapping("/doctypes")
 public class DocTypeController {
     @Autowired
     private DocTypeService docTypeService;
     @GetMapping("")
     public ResponseEntity<List<DocType>> getAll() {
-        return new ResponseEntity<>(docTypeService.getAll(), HttpStatus.OK);
+        return docTypeService.getAll()
+                .map(docs -> new ResponseEntity<>(docs, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     @GetMapping("/{id}")
     public ResponseEntity<DocType> getDocType(@PathVariable("id") int idTypeDoc){

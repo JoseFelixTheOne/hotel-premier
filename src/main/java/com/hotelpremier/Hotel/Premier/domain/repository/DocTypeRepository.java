@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface DocTypeRepository {
-    List<DocType> getAll();
+    Optional<List<DocType>> getAll();
     Optional<DocType> getDocType(int idTypeDoc);
     DocType save(DocType docType);
     void delete(int idTypeDoc);

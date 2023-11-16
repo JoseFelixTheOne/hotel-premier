@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DocType {
-    private int idTypeDoc;
+    private Integer idTypeDoc;
     private String desc;
+    private String active;
 }

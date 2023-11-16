@@ -13,13 +13,15 @@ import java.util.Optional;
 public class DocTypeService {
     @Autowired
     private DocTypeRepository docTypeRepository;
-    public List<DocType> getAll() {
+    public Optional<List<DocType>> getAll() {
         return docTypeRepository.getAll();
     }
     public Optional<DocType> getDocType(int idTypeDoc) {
         return docTypeRepository.getDocType(idTypeDoc);
     }
     public DocType save(DocType docType) {
+        docType.setIdTypeDoc(null);
+        docType.setActive("a");
         return docTypeRepository.save(docType);
     }
     public DocType update(DocType docType) {
