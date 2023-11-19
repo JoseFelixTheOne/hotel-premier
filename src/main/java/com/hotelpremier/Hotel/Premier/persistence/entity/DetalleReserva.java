@@ -24,4 +24,12 @@ public class DetalleReserva {
     private BigDecimal precioReserva;
     @Column(name = "observacion_reserva")
     private String observacionReserva;
+
+    @ManyToOne
+    @JoinColumn(name = "id_reserva", insertable = false, updatable = false)
+    private Reserva reserva;
+
+    @ManyToOne
+    @JoinColumn(name = "id_habitacion", insertable = false, updatable = false)
+    private Habitacion habitacion;
 }

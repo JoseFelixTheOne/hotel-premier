@@ -1,14 +1,12 @@
 package com.hotelpremier.Hotel.Premier.persistence.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_reserva")
@@ -26,4 +24,11 @@ public class Reserva {
     private BigDecimal totalReserva;
     @Column(name = "activo_reserva")
     private String activoReserva;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", insertable = false, updatable = false)
+    private Usuario usuario;
+
+    @OneToMany(mappedBy = "reserva", cascade = {CascadeType.ALL})
+    private List<DetalleReserva> detalles;
 }
