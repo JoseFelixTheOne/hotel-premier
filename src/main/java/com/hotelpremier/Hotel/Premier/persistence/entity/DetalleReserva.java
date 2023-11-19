@@ -12,14 +12,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class DetalleReserva {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_detallereserva")
-    private Integer idDetalle;
+    @EmbeddedId
+    private DetalleReservaPK id;
     @Column(name = "id_habitacion")
     private Integer idHabitacion;
-    @Column(name = "id_reserva")
-    private Integer idReserva;
     @Column(name = "checkin_reserva")
     private LocalDateTime checkinReserva;
     @Column(name = "checkout_reserva")
