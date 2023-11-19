@@ -15,7 +15,5 @@ public class Reservation {
     private LocalDateTime date;
     private BigDecimal total;
     private String active;
-
-    private User user;
     private List<ReservationDetail> details;
 }

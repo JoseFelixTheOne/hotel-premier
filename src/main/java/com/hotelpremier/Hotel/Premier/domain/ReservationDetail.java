@@ -9,11 +9,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ReservationDetail {
+    private Integer detailId;
     private Integer roomId;
     private LocalDateTime checkin;
     private LocalDateTime checkout;
     private BigDecimal price;
     private String note;
-    private Reservation reservation;
-    private Room room;
 }
