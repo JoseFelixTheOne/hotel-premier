@@ -17,8 +17,6 @@ public interface DetailMapper {
     @Mapping(source = "checkoutReserva", target = "checkout")
     @Mapping(source = "precioReserva", target = "price")
     @Mapping(source = "observacionReserva", target = "note")
-    @Mapping(source = "habitacion", target = "room")
-    @Mapping(source = "reserva", target = "reservation")
     ReservationDetail toDetail(DetalleReserva detalle);
     List<ReservationDetail> toDetails(List<DetalleReserva> detalles);
 
