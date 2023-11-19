@@ -15,6 +15,7 @@ import java.util.List;
 public class Reserva {
     @Id
     @Column(name = "id_reserva")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idReserva;
     @Column(name = "id_usuario")
     private Integer idUsuario;
