@@ -46,6 +46,9 @@ public class RoomService {
     public Optional<List<Room>> getRoomsByRoomStatusAndFloorAndRoomType(int roomStatusId, int floorId, int roomTypeId){
         return roomRepository.getRoomsByRoomStatusAndFloorAndRoomType(roomStatusId, floorId, roomTypeId);
     }
+    public Optional<List<Room>> getRoomByRoomNumber(int roomNumber){
+        return roomRepository.getRoomByRoomNumber(roomNumber);
+    }
     public Room save(Room room){
         room.setRoomActive("A");
         return roomRepository.save(room);

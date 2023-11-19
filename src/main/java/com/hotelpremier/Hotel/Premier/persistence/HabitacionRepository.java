@@ -73,6 +73,13 @@ public class HabitacionRepository implements RoomRepository {
         return habitacionCrudRepository.getRoomsByIdEstadoHabitacionAndIdPisoAndIdTipoHabitacion(roomStatusId, floorId, roomTypeId)
                 .map(r -> mapper.toRooms(r));
     }
+
+    @Override
+    public Optional<List<Room>> getRoomByRoomNumber(int roomNumber) {
+        return habitacionCrudRepository.getRoomByNumeroHabitacion(roomNumber)
+                .map(r -> mapper.toRooms(r));
+    }
+
     @Override
     public Room save(Room room) {
         return mapper.toRoom(habitacionCrudRepository.save(mapper.toHabitacion(room)));

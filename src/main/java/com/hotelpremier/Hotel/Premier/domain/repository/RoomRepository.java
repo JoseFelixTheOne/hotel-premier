@@ -16,6 +16,7 @@ public interface RoomRepository {
     Optional<List<Room>> getRoomsByRoomStatusAndRoomType(int roomStatusId, int roomTypeId);
     Optional<List<Room>> getRoomsByFloorAndRoomType(int floorId, int roomTypeId);
     Optional<List<Room>> getRoomsByRoomStatusAndFloorAndRoomType(int roomStatusId, int floorId, int roomTypeId);
+    Optional<List<Room>> getRoomByRoomNumber(int roomNumber);
     Room save(Room room);
     void delete(int roomId);
 }

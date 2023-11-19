@@ -74,6 +74,12 @@ public class RoomController {
                 .map(r -> new ResponseEntity<>(r, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+    @GetMapping("/roomnumber/{roomNumber}")
+    public ResponseEntity<List<Room>> getRoomByRoomNumber(@PathVariable("roomNumber") int roomNumber){
+        return roomService.getRoomByRoomNumber(roomNumber)
+                .map(r -> new ResponseEntity<>(r, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
     @PostMapping("/")
     public ResponseEntity<Room> save(@RequestBody Room room){
         return new ResponseEntity<>(roomService.save(room), HttpStatus.CREATED);

@@ -1,5 +1,6 @@
 package com.hotelpremier.Hotel.Premier.persistence.crud;
 
+import com.hotelpremier.Hotel.Premier.domain.Room;
 import com.hotelpremier.Hotel.Premier.persistence.entity.Habitacion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,4 +27,6 @@ public interface HabitacionCrudRepository extends JpaRepository<Habitacion, Inte
     Optional<List<Habitacion>> findAllActive();
     @Query(value = "SELECT * FROM tb_habitacion WHERE activo_habitacion = 'I'", nativeQuery = true)
     Optional<List<Habitacion>> findAllInactive();
+    @Query(value = "SELECT * FROM tb_habitacion WHERE numero_habitacion LIKE %:roomNumber% AND activo_habitacion = 'A'", nativeQuery = true)
+    Optional<List<Habitacion>> getRoomByNumeroHabitacion(@Param("roomNumber") int roomNumber);
 }
