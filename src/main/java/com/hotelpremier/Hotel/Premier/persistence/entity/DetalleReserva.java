@@ -26,6 +26,7 @@ public class DetalleReserva {
     private String observacionReserva;
 
     @ManyToOne
+    @MapsId("idReserva")
     @JoinColumn(name = "id_reserva", insertable = false, updatable = false)
     private Reserva reserva;
 
