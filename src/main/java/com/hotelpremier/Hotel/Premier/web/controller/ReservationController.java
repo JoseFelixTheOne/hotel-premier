@@ -2,6 +2,7 @@ package com.hotelpremier.Hotel.Premier.web.controller;
 
 import com.hotelpremier.Hotel.Premier.domain.Reservation;
 import com.hotelpremier.Hotel.Premier.domain.service.ReservationService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class ReservationController {
     private ReservationService reservationService;
 
     @PostMapping
-    public ResponseEntity<Reservation> reserve(@RequestBody Reservation reservation){
+    public ResponseEntity<Reservation> reserve(@Valid @RequestBody Reservation reservation){
         return new ResponseEntity<>(reservationService.reserve(reservation), HttpStatus.CREATED);
     }
     @GetMapping({"", "/"})
