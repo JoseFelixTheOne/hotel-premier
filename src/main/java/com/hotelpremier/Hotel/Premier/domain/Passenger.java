@@ -15,6 +15,7 @@ public class Passenger {
     private String email;
     private String phone;
     private String active;
+    private String passengerHasUser;
 
     private DocType docType;
 }

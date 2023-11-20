@@ -21,7 +21,7 @@ public class Pasajero {
     private String nombres;
     @Column(name = "apellidopaterno_pasajero")
     private String apellidopaterno;
-    @Column(name = "apellidomaterno_pasajeron")
+    @Column(name = "apellidomaterno_pasajero")
     private String apellidomaterno;
     @Column(name = "correo_pasajero")
     private String correo;
@@ -29,6 +29,8 @@ public class Pasajero {
     private String telefono;
     @Column(name = "activo_pasajero")
     private String activo;
+    @Column(name = "btieneusuario_persona")
+    private String btieneusuarioPasajero;
 
     @ManyToOne
     @JoinColumn(name = "id_tpodoc", insertable = false, updatable = false)

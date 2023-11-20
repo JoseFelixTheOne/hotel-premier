@@ -1,9 +1,6 @@
 package com.hotelpremier.Hotel.Premier.persistence.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,8 +10,11 @@ import lombok.Setter;
 @Setter
 public class EstadoHabitacion {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_estadohabitacion")
     private int id;
     @Column(name = "nombre_estadohabitacion")
     private String nombre;
+    @Column(name = "activo_estadohabitacion")
+    private String activo;
 }

@@ -6,8 +6,6 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @Mapper(componentModel =  "spring", uses = {UserTypeMapper.class, MenuMapper.class})
 public interface UserTypeMenuMapper {

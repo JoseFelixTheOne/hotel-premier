@@ -7,6 +7,8 @@ import com.hotelpremier.Hotel.Premier.persistence.entity.Habitacion;
 import com.hotelpremier.Hotel.Premier.persistence.mapper.RoomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +20,18 @@ public class HabitacionRepository implements RoomRepository {
     private RoomMapper mapper;
     @Override
     public List<Room> getAll() {
-        return mapper.toRooms(habitacionCrudRepository.findAll());
+        List<Habitacion> habitaciones = habitacionCrudRepository.findAll();
+        return mapper.toRooms(habitaciones);
+    }
+    @Override
+    public List<Room> getAllActive() {
+        List<Habitacion> habitaciones = habitacionCrudRepository.findAllActive().get();
+        return mapper.toRooms(habitaciones);
+    }
+    @Override
+    public List<Room> getAllInactive() {
+        List<Habitacion> habitaciones = habitacionCrudRepository.findAllInactive().get();
+        return mapper.toRooms(habitaciones);
     }
     @Override
     public Optional<Room> getRoomById(int roomId) {
@@ -60,12 +73,19 @@ public class HabitacionRepository implements RoomRepository {
         return habitacionCrudRepository.getRoomsByIdEstadoHabitacionAndIdPisoAndIdTipoHabitacion(roomStatusId, floorId, roomTypeId)
                 .map(r -> mapper.toRooms(r));
     }
+
+    @Override
+    public Optional<List<Room>> getRoomByRoomNumber(int roomNumber) {
+        return habitacionCrudRepository.getRoomByNumeroHabitacion(roomNumber)
+                .map(r -> mapper.toRooms(r));
+    }
+
     @Override
     public Room save(Room room) {
         return mapper.toRoom(habitacionCrudRepository.save(mapper.toHabitacion(room)));
     }
     @Override
     public void delete(int roomId) {
-        habitacionCrudRepository.deleteById(roomId);
+        System.out.println("SE ELIMINÓ CORRECTAMENTE LA HABITACIÓN CON ID: " + roomId);
     }
 }

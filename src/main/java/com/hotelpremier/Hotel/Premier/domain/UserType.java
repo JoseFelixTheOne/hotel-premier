@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserType {
-    private int userTypeId;
+    private Integer userTypeId;
     private String name;
     private String active;
 }

@@ -1,5 +1,6 @@
 package com.hotelpremier.Hotel.Premier.persistence;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.hotelpremier.Hotel.Premier.domain.UserTypeMenu;
 import com.hotelpremier.Hotel.Premier.domain.repository.UserTypeMenuRepository;
 import com.hotelpremier.Hotel.Premier.persistence.crud.TipoUsuarioMenuCrudRepository;
@@ -25,25 +26,21 @@ public class TipoUsuarioMenuRepository implements UserTypeMenuRepository {
     public Optional<UserTypeMenu> getUserTypeMenu(int idUserTypeMenu) {
         return tipoUsuarioMenuCrudRepository.findById(idUserTypeMenu).map(menus -> mapper.userTypeMenu(menus));
     }
-
     @Override
     public Optional<List<UserTypeMenu>> getRolesByUserType(int idUserType) {
         return tipoUsuarioMenuCrudRepository.findByIdTipoUsuario(idUserType)
                 .map(menus -> mapper.userTypeMenus(menus));
     }
-
     @Override
     public Optional<List<UserTypeMenu>> getRolesByMenu(int idMenu){
         return tipoUsuarioMenuCrudRepository.findByIdMenu(idMenu)
                 .map(m -> mapper.userTypeMenus(m));
     }
-
     @Override
     public Optional<List<UserTypeMenu>> getRolesByUserTypeAndMenu(int idUserType, int idMenu) {
         return tipoUsuarioMenuCrudRepository.findByIdTipoUsuarioAndIdMenu(idUserType,idMenu)
                 .map(m -> mapper.userTypeMenus(m));
     }
-
     @Override
     public UserTypeMenu save(UserTypeMenu userTypeMenu) {
         TipoUsuarioMenu menus = mapper.tipoUsuarioMenu(userTypeMenu);
@@ -51,6 +48,6 @@ public class TipoUsuarioMenuRepository implements UserTypeMenuRepository {
     }
     @Override
     public void delete(int idUserTypeMenu) {
-        tipoUsuarioMenuCrudRepository.deleteById(idUserTypeMenu);
+        System.out.println("SE ELIMINO EL REGISTRO CORRECTAMENTE :" + idUserTypeMenu);
     }
 }

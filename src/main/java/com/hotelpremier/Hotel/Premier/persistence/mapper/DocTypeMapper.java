@@ -5,13 +5,13 @@ import com.hotelpremier.Hotel.Premier.persistence.entity.TipoDocumento;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface DocTypeMapper {
     @Mapping(source = "idTipoDoc", target = "idTypeDoc")
     @Mapping(source = "descripcion", target = "desc")
+    @Mapping(source = "activo", target = "active")
     DocType toDocType(TipoDocumento tipoDocumento);
     List<DocType> toDocTypes(List<TipoDocumento> tipoDocumentos);
 

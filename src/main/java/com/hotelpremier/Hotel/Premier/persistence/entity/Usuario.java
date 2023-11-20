@@ -31,4 +31,5 @@ public class Usuario {
     @ManyToOne
     @JoinColumn(name = "id_tipouser", insertable = false, updatable = false)
     private TipoUsuario objTpoUsuario;
+
 }

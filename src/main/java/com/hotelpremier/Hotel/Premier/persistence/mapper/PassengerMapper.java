@@ -5,7 +5,6 @@ import com.hotelpremier.Hotel.Premier.persistence.entity.Pasajero;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {DocTypeMapper.class})
@@ -20,6 +19,7 @@ public interface PassengerMapper {
     @Mapping(source = "telefono", target = "phone")
     @Mapping(source = "activo", target = "active")
     @Mapping(source = "objTpoDoc", target = "docType")
+    @Mapping(source = "btieneusuarioPasajero", target = "passengerHasUser")
     Passenger toPassenger(Pasajero pasajero);
     List<Passenger> toPassengers(List<Pasajero> pasajeros);
 
