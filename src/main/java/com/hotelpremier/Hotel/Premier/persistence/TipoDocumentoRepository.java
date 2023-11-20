@@ -18,11 +18,11 @@ public class TipoDocumentoRepository implements DocTypeRepository {
     private DocTypeMapper mapper;
     @Override
     public Optional<List<DocType>> getAll() {
-        return tipoDocumentoCrudRepository.findByActivo("a").map(docs -> mapper.toDocTypes(docs));
+        return tipoDocumentoCrudRepository.findByActivo("A").map(docs -> mapper.toDocTypes(docs));
     }
     @Override
     public Optional<DocType> getDocType(int idTypeDoc) {
-        return tipoDocumentoCrudRepository.findByIdTipoDocAndActivo(idTypeDoc, "a").map(tipoDocumento -> mapper.toDocType(tipoDocumento));
+        return tipoDocumentoCrudRepository.findByIdTipoDocAndActivo(idTypeDoc, "A").map(tipoDocumento -> mapper.toDocType(tipoDocumento));
     }
     @Override
     public DocType save(DocType docType) {

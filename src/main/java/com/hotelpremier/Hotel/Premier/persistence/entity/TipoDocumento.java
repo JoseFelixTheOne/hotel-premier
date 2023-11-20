@@ -15,5 +15,6 @@ public class TipoDocumento {
     private Integer idTipoDoc;
     @Column(name = "nombre_tpodoc")
     private String descripcion;
+    @Column(name = "activo_tpodoc")
     private String activo;
 }

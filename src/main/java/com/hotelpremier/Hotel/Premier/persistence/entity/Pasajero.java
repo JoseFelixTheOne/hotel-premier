@@ -29,6 +29,8 @@ public class Pasajero {
     private String telefono;
     @Column(name = "activo_pasajero")
     private String activo;
+    @Column(name = "btieneusuario_persona")
+    private String btieneusuarioPasajero;
 
     @ManyToOne
     @JoinColumn(name = "id_tpodoc", insertable = false, updatable = false)

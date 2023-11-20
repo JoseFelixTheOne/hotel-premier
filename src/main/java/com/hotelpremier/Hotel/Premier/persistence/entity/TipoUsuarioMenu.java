@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class TipoUsuarioMenu {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tipousermenu")
     private int idMenuTipoUsuario;
     @Column(name = "id_tipouser")

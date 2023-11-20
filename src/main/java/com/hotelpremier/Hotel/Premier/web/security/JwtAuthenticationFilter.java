@@ -44,7 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             //Cargamos la lista de String con los roles del usuario
             List<String>userRoles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
             //Comprobamos que el usuario autenticado posee algunos de los siguientes roles alojados en la lista
-            if(userRoles.contains("Administrador") || userRoles.contains("Gerente")){
+            if(userRoles.contains("Administrador") || userRoles.contains("Usuario")){
                 //Creamos el objeto authenticationToken con los datos del usuario
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 //Acá establecimos información adicional de la autenticación del usuario

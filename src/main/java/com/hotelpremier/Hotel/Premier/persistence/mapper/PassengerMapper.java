@@ -19,6 +19,7 @@ public interface PassengerMapper {
     @Mapping(source = "telefono", target = "phone")
     @Mapping(source = "activo", target = "active")
     @Mapping(source = "objTpoDoc", target = "docType")
+    @Mapping(source = "btieneusuarioPasajero", target = "passengerHasUser")
     Passenger toPassenger(Pasajero pasajero);
     List<Passenger> toPassengers(List<Pasajero> pasajeros);
 

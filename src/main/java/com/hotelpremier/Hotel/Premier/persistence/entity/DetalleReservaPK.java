@@ -2,6 +2,8 @@ package com.hotelpremier.Hotel.Premier.persistence.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +13,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class DetalleReservaPK implements Serializable {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_detallereserva")
     private Integer idDetalle;
 
