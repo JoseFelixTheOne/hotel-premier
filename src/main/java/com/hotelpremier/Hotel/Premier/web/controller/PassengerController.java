@@ -18,12 +18,12 @@ public class PassengerController {
 
     private PassengerService passengerService;
     @GetMapping({"","/"})
-    public ResponseEntity<List<Passenger>> getAll() {
-        return new ResponseEntity<>(passengerService.getAll(), HttpStatus.OK);
-    }
-    @GetMapping("/active")
     public ResponseEntity<List<Passenger>> getAllActive() {
         return new ResponseEntity<>(passengerService.getAllActive(), HttpStatus.OK);
+    }
+    @GetMapping("/listAll")
+    public ResponseEntity<List<Passenger>> getAll() {
+        return new ResponseEntity<>(passengerService.getAll(), HttpStatus.OK);
     }
     @GetMapping("/{id}")
     public ResponseEntity<Passenger> getPassenger(@PathVariable("id") int idpas) {
