@@ -14,7 +14,15 @@ import java.util.List;
 public class RoomTypeController {
     @Autowired
     private RoomTypeService roomTypeService;
-    @GetMapping("/")
+    @GetMapping({"/", ""})
+    public ResponseEntity<List<RoomType>> getAllActive() {
+        return new ResponseEntity<>(roomTypeService.getAllActive(), HttpStatus.OK);
+    }
+    @GetMapping("/inactive")
+    public ResponseEntity<List<RoomType>> getAllInactive() {
+        return new ResponseEntity<>(roomTypeService.getAllInactive(), HttpStatus.OK);
+    }
+    @GetMapping("/listAll")
     public ResponseEntity<List<RoomType>> getAll() {
         return new ResponseEntity<>(roomTypeService.getAll(), HttpStatus.OK);
     }
@@ -34,6 +42,7 @@ public class RoomTypeController {
     }
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable("id") int idroomtype) {
-        return new ResponseEntity(roomTypeService.delete(idroomtype) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+        roomTypeService.delete(idroomtype);
+        return new ResponseEntity(roomTypeService.getAllActive(), HttpStatus.OK);
     }
 }

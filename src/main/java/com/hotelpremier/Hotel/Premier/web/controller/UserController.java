@@ -92,14 +92,18 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(dtoRegistro.getPassword()));
         Optional<UserType> tipoUsuario = userTypeService.getUserType(dtoRegistro.getUsertpe());
         user.setUsertpe(tipoUsuario.get().getUserTypeId());
-        return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
+        return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
     }
     //Logueo y Generación de Token
     @PostMapping("/login")
     public ResponseEntity<DtoAuthResponse> login(@RequestBody DtoLogin dtoLogin){
+        System.out.println("Usuario: " + dtoLogin.getUser());
+        System.out.println("Contraseña: " + dtoLogin.getPassword());
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dtoLogin.getUser(), dtoLogin.getPassword()));
+        System.out.println(authentication);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtGenerator.generarToken(authentication);
+        System.out.println(token);
         return new ResponseEntity<>(new DtoAuthResponse(token), HttpStatus.OK);
     }
     //Actualización de Usuario

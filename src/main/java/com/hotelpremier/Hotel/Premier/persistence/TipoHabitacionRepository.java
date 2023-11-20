@@ -7,7 +7,6 @@ import com.hotelpremier.Hotel.Premier.persistence.entity.TipoHabitacion;
 import com.hotelpremier.Hotel.Premier.persistence.mapper.RoomTypeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,18 +18,18 @@ public class TipoHabitacionRepository implements RoomTypeRepository {
     private RoomTypeMapper mapper;
     @Override
     public List<RoomType> getAll() {
-        List<TipoHabitacion> lista = new ArrayList<TipoHabitacion>();
-        try {
-            var tipoHabitaciones = tipoHabitacionCrudRepository.findAll();
-            for (TipoHabitacion tipoHabitacion : tipoHabitaciones){
-                if(tipoHabitacion.getActivo().equals("A")){
-                    lista.add(tipoHabitacion);
-                }
-            }
-        }catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-        return mapper.toRoomTypes(lista);
+        List<TipoHabitacion> tipoHabitaciones = tipoHabitacionCrudRepository.findAll();
+        return mapper.toRoomTypes(tipoHabitaciones);
+    }
+    @Override
+    public List<RoomType> getAllActive() {
+        List<TipoHabitacion> habitaciones = tipoHabitacionCrudRepository.findAllActive().get();
+        return mapper.toRoomTypes(habitaciones);
+    }
+    @Override
+    public List<RoomType> getAllInactive() {
+        List<TipoHabitacion> habitaciones = tipoHabitacionCrudRepository.findAllInactive().get();
+        return mapper.toRoomTypes(habitaciones);
     }
     @Override
     public Optional<RoomType> getRoomType(int idroomtype) {
@@ -44,7 +43,7 @@ public class TipoHabitacionRepository implements RoomTypeRepository {
     @Override
     public void delete(int idroomtype) {
         TipoHabitacion tipoHabitacion = tipoHabitacionCrudRepository.findById(idroomtype).orElse(new TipoHabitacion());
-        tipoHabitacion.setActivo("d");
+        tipoHabitacion.setActivo("I");
         tipoHabitacionCrudRepository.save(tipoHabitacion);
     }
 }
