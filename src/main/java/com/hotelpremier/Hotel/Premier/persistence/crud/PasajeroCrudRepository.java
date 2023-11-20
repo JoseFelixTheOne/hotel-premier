@@ -14,10 +14,8 @@ public interface PasajeroCrudRepository extends JpaRepository<Pasajero, Integer>
 
     @Query(value = "SELECT * FROM tb_pasajero WHERE nrodoc_pasajero = :nrodocumento AND activo_pasajero = 'A'", nativeQuery = true)
     Optional<List<Pasajero>> getPassengerByNroDocumento(@Param("nrodocumento") String nrodocumento);
-    @Query(value = "SELECT * FROM tb_pasajero WHERE nombres_pasajero LIKE %:nombre% OR apellidopaterno_pasajero LIKE %:apellidopat%" +
-            " OR apellidomaterno_pasajero LIKE %:apellidomat% AND activo_pasajero = 'A'", nativeQuery = true)
-    Optional<List<Pasajero>> getPasajeroByNombreApellido(@Param("nombre") String nombre, @Param("apellidopat") String apellidopat,
-                                                         @Param("apellidomat") String apellidomat);
+    @Query(value = "SELECT * FROM tb_pasajero where CONCAT(nombres_pasajero, ' ' , apellidopaterno_pasajero, ' ', apellidomaterno_pasajero) LIKE %:nombre%", nativeQuery = true)
+    Optional<List<Pasajero>> getPasajeroByNombreApellido(@Param("nombre") String nombre);
     @Query(value = "SELECT * FROM tb_pasajero WHERE correo_pasajero LIKE %:correo% AND activo_pasajero = 'A'", nativeQuery = true)
     Optional<List<Pasajero>> getPasajeroByEmail(@Param("correo") String correo);
     @Query(value = "SELECT * FROM tb_pasajero WHERE telefono_pasajero LIKE %:telefono% AND activo_pasajero = 'A'", nativeQuery = true)

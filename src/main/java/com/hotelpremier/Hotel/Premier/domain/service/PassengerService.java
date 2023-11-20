@@ -26,8 +26,8 @@ public class PassengerService {
     public Optional<List<Passenger>> getPassengerBynroDoc(String nrodocumento){
         return passengerRepository.getPassengerByNroDocumento(nrodocumento);
     }
-    public Optional<List<Passenger>> getPassengerByNombreApellido(String nombre, String apellidopat, String apellidomat){
-        return passengerRepository.getPassengerByNombreApellido(nombre,apellidopat,apellidomat);
+    public Optional<List<Passenger>> getPassengerByNombreApellido(String nombre){
+        return passengerRepository.getPassengerByNombreApellido(nombre);
     }
     public Optional<List<Passenger>> getPassengerByEmail(String email){
         return passengerRepository.getPassengerByEmail(email);

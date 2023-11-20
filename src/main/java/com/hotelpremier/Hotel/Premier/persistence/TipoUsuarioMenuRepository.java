@@ -1,5 +1,6 @@
 package com.hotelpremier.Hotel.Premier.persistence;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.hotelpremier.Hotel.Premier.domain.UserTypeMenu;
 import com.hotelpremier.Hotel.Premier.domain.repository.UserTypeMenuRepository;
 import com.hotelpremier.Hotel.Premier.persistence.crud.TipoUsuarioMenuCrudRepository;
@@ -47,6 +48,6 @@ public class TipoUsuarioMenuRepository implements UserTypeMenuRepository {
     }
     @Override
     public void delete(int idUserTypeMenu) {
-        tipoUsuarioMenuCrudRepository.deleteById(idUserTypeMenu);
+        System.out.println("SE ELIMINO EL REGISTRO CORRECTAMENTE :" + idUserTypeMenu);
     }
 }

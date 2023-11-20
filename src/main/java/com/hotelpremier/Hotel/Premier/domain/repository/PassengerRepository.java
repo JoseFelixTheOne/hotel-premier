@@ -9,7 +9,7 @@ public interface PassengerRepository {
     List<Passenger> getAllActive();
     Optional<Passenger> getPassengerById(int passengerid);
     Optional<List<Passenger>> getPassengerByNroDocumento(String nrodocumento);
-    Optional<List<Passenger>> getPassengerByNombreApellido(String nombre, String apellidopat, String apellidomat);
+    Optional<List<Passenger>> getPassengerByNombreApellido(String nombre);
     Optional<List<Passenger>> getPassengerByEmail(String email);
     Optional<List<Passenger>> getPassengerByPhone(String phone);
     Optional<Passenger> getPassenger(int idpas);

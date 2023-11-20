@@ -42,8 +42,8 @@ public class PasajeroRepository implements PassengerRepository {
     }
 
     @Override
-    public Optional<List<Passenger>> getPassengerByNombreApellido(String nombre, String apellidopat, String apellidomat) {
-        return pasajeroCrudRepository.getPasajeroByNombreApellido(nombre,apellidopat,apellidomat)
+    public Optional<List<Passenger>> getPassengerByNombreApellido(String nombre) {
+        return pasajeroCrudRepository.getPasajeroByNombreApellido(nombre)
                 .map(p -> mapper.toPassengers(p));
     }
 

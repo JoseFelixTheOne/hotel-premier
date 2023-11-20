@@ -32,11 +32,9 @@ public class PassengerController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/nombres/{nombre}/{apellidopat}/{apellidomat}")
-    public ResponseEntity<List<Passenger>> getPassengerByNombreApellido(@PathVariable("nombre") String nombre,
-                                                                        @PathVariable("apellidopat") String apellidopat,
-                                                                        @PathVariable("apellidomat") String apellidomat) {
-        return passengerService.getPassengerByNombreApellido(nombre,apellidopat,apellidomat)
+    @GetMapping("/name/{nombre}")
+    public ResponseEntity<List<Passenger>> getPassengerByNombreApellido(@PathVariable("nombre") String nombre) {
+        return passengerService.getPassengerByNombreApellido(nombre)
                 .map(p -> new ResponseEntity<>(p,HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
