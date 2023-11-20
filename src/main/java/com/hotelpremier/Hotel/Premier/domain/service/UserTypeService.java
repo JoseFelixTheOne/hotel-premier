@@ -24,7 +24,7 @@ public class UserTypeService {
     }
     public UserType save(UserType userType) {
         userType.setUserTypeId(null);
-        userType.setActive("a");
+        userType.setActive("A");
         return userTypeRepository.save(userType);
     }
     public UserType update(UserType userType){

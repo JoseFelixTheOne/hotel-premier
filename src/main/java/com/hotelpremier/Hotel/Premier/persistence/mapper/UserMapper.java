@@ -16,7 +16,7 @@ public interface UserMapper {
     @Mapping(source = "tipousuario", target = "usertpe")
     @Mapping(source = "activo", target = "active")
     @Mapping(source = "objTpoUsuario", target = "objuserType")
-    @Mapping(source = "objPasajero", target = "objPassenger")
+    //@Mapping(source = "objPasajero", target = "objPassenger")
     User toUser(Usuario usuario);
 
     List<User> toUsers(List<Usuario> usuarios);
