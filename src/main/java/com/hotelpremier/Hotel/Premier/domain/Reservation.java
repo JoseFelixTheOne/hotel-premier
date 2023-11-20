@@ -2,6 +2,7 @@ package com.hotelpremier.Hotel.Premier.domain;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,5 +20,6 @@ public class Reservation {
     private BigDecimal total;
     private String active = "A";
     @Valid
+    @Size(min = 1, message = "There should be at least one detail")
     private List<ReservationDetail> details;
 }
