@@ -16,6 +16,12 @@ public class FloorService {
     public List<Floor> getAll() {
         return floorRepository.getAll();
     }
+    public List<Floor> getAllActive() {
+        return floorRepository.getAllActive();
+    }
+    public List<Floor> getAllInactive() {
+        return floorRepository.getAllInactive();
+    }
     public Optional<Floor> getFloor(int idfloor) {
         return  floorRepository.getFloor(idfloor);
     }
@@ -33,7 +39,7 @@ public class FloorService {
     public void delete(int idfloor) {
         if(getFloor(idfloor).isPresent()) {
             Floor floor = getFloor(idfloor).get();
-            floor.setActive("A");
+            floor.setActive("I");
             floorRepository.save(floor);
         }else {
             System.out.println("ERROR 404 : FLOOR NOT FOUND");

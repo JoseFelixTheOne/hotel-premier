@@ -6,6 +6,8 @@ import java.util.Optional;
 
 public interface FloorRepository {
     List<Floor> getAll();
+    List<Floor> getAllActive();
+    List<Floor> getAllInactive();
     Optional<Floor> getFloor(int idfloor);
     Floor save(Floor floor);
     void delete(int idfloor);

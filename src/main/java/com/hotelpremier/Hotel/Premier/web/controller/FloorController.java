@@ -14,7 +14,15 @@ import java.util.List;
 public class FloorController {
     @Autowired
     private FloorService floorService;
-    @GetMapping("")
+    @GetMapping({"","/"})
+    public ResponseEntity<List<Floor>> getAllActive() {
+        return new ResponseEntity<>(floorService.getAllActive(), HttpStatus.OK);
+    }
+    @GetMapping("/inactive")
+    public ResponseEntity<List<Floor>> getAllInactive() {
+        return new ResponseEntity<>(floorService.getAllInactive(), HttpStatus.OK);
+    }
+    @GetMapping("/listAll")
     public ResponseEntity<List<Floor>> getAll() {
         return new ResponseEntity<>(floorService.getAll(), HttpStatus.OK);
     }

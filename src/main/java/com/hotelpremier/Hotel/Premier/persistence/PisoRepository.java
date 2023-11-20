@@ -19,18 +19,15 @@ public class PisoRepository implements FloorRepository {
     private FloorMapper mapper;
     @Override
     public List<Floor> getAll() {
-        List<Piso> lista = new ArrayList<Piso>();
-        try {
-            var pisos = pisoCrudRepository.findAll();
-            for(Piso piso : pisos){
-                if(piso.getActivo().equals("a")){
-                    lista.add(piso);
-                }
-            }
-        }catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-        return mapper.toFloors(lista);
+        return mapper.toFloors(pisoCrudRepository.findAll());
+    }
+    @Override
+    public List<Floor> getAllActive() {
+        return mapper.toFloors(pisoCrudRepository.findAllActive().get());
+    }
+    @Override
+    public List<Floor> getAllInactive() {
+        return mapper.toFloors(pisoCrudRepository.findAllInactive().get());
     }
     @Override
     public Optional<Floor> getFloor(int idfloor) {
