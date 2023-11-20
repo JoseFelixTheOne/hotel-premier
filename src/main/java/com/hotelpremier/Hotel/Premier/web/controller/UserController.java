@@ -72,10 +72,11 @@ public class UserController {
     }
     //Registro de Usuario
     @PostMapping("/")
-    public ResponseEntity<String> save(@RequestBody DtoRegistro dtoRegistro){
-        boolean userexists = userService.existsByUsuarioacceso(dtoRegistro.getUsername());
+    public ResponseEntity<?> save(@RequestBody DtoRegistro dtoRegistro){
+        boolean userexists = userService.existsByUsuarioacceso(dtoRegistro.getUser());
         boolean passengerexists = passengerService.existsById(dtoRegistro.getIdpassenger());
         boolean passengerhasuser = userService.existsByIdpasajero(dtoRegistro.getIdpassenger());
+        System.out.println(dtoRegistro.getUser());
         if(userexists){
             return new ResponseEntity<>("El nombre de usuario ya existe", HttpStatus.BAD_REQUEST);
         }
@@ -87,17 +88,16 @@ public class UserController {
         }
         User user = new User();
         user.setIdpassenger(dtoRegistro.getIdpassenger());
-        user.setUser(dtoRegistro.getUsername());
+        user.setUser(dtoRegistro.getUser());
         user.setPassword(passwordEncoder.encode(dtoRegistro.getPassword()));
         Optional<UserType> tipoUsuario = userTypeService.getUserType(dtoRegistro.getUsertpe());
         user.setUsertpe(tipoUsuario.get().getUserTypeId());
-        userService.save(user);
-        return new ResponseEntity<>("Usuario creado", HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
     }
     //Logueo y Generación de Token
     @PostMapping("/login")
     public ResponseEntity<DtoAuthResponse> login(@RequestBody DtoLogin dtoLogin){
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dtoLogin.getUsername(), dtoLogin.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dtoLogin.getUser(), dtoLogin.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtGenerator.generarToken(authentication);
         return new ResponseEntity<>(new DtoAuthResponse(token), HttpStatus.OK);

@@ -6,7 +6,7 @@ import lombok.Data;
 public class DtoRegistro {
     private int iduser;
     private int idpassenger;
-    private String username;
+    private String user;
     private String password;
     private int usertpe;
     private String active;
