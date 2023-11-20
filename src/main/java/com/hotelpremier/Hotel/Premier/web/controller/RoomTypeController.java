@@ -14,7 +14,7 @@ import java.util.List;
 public class RoomTypeController {
     @Autowired
     private RoomTypeService roomTypeService;
-    @GetMapping("")
+    @GetMapping("/")
     public ResponseEntity<List<RoomType>> getAll() {
         return new ResponseEntity<>(roomTypeService.getAll(), HttpStatus.OK);
     }

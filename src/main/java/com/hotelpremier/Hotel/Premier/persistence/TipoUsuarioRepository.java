@@ -23,7 +23,7 @@ public class TipoUsuarioRepository implements UserTypeRepository {
         try {
             var tipoUsuarios = tipoUsuarioCrudRepository.findAll();
             for (TipoUsuario tipoUsuario : tipoUsuarios){
-                if(tipoUsuario.getActivoTipouser().equals("a")){
+                if(tipoUsuario.getActivoTipouser().equals("A")){
                     lista.add(tipoUsuario);
                 }
             }

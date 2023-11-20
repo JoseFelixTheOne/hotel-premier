@@ -23,7 +23,7 @@ public class TipoHabitacionRepository implements RoomTypeRepository {
         try {
             var tipoHabitaciones = tipoHabitacionCrudRepository.findAll();
             for (TipoHabitacion tipoHabitacion : tipoHabitaciones){
-                if(tipoHabitacion.getActivo().equals("a")){
+                if(tipoHabitacion.getActivo().equals("A")){
                     lista.add(tipoHabitacion);
                 }
             }
