@@ -33,6 +33,6 @@ public class EstadoHabitacionRepository implements EstateRoomRepository {
     }
     @Override
     public void delete(int idestroom) {
-        estadoHabitacionCrudRepository.deleteById(idestroom);
+        System.out.println("ROOM STATUS DELETED SUCCESSFULLY : " + idestroom);
     }
 }

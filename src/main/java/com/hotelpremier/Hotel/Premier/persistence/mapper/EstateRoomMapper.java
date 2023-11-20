@@ -11,6 +11,7 @@ import java.util.List;
 public interface EstateRoomMapper {
     @Mapping(source = "id", target = "idestroom")
     @Mapping(source = "nombre", target = "name")
+    @Mapping(source = "activo", target = "active")
     EstateRoom toEstateRoom(EstadoHabitacion estadoHabitacion);
     List<EstateRoom> toEstateRooms(List<EstadoHabitacion> estadoHabitaciones);
 

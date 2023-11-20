@@ -15,4 +15,6 @@ public class EstadoHabitacion {
     private int id;
     @Column(name = "nombre_estadohabitacion")
     private String nombre;
+    @Column(name = "activo_estadohabitacion")
+    private String activo;
 }

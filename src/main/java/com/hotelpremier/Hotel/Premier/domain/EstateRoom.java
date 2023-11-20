@@ -8,4 +8,5 @@ import lombok.Setter;
 public class EstateRoom {
     private int idestroom;
     private String name;
+    private String active;
 }

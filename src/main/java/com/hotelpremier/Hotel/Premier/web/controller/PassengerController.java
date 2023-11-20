@@ -2,21 +2,28 @@ package com.hotelpremier.Hotel.Premier.web.controller;
 
 import com.hotelpremier.Hotel.Premier.domain.Passenger;
 import com.hotelpremier.Hotel.Premier.domain.service.PassengerService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/passenger")
+@AllArgsConstructor
 public class PassengerController {
-    @Autowired
+
     private PassengerService passengerService;
-    @GetMapping("")
+    @GetMapping({"","/"})
     public ResponseEntity<List<Passenger>> getAll() {
         return new ResponseEntity<>(passengerService.getAll(), HttpStatus.OK);
+    }
+    @GetMapping("/active")
+    public ResponseEntity<List<Passenger>> getAllActive() {
+        return new ResponseEntity<>(passengerService.getAllActive(), HttpStatus.OK);
     }
     @GetMapping("/{id}")
     public ResponseEntity<Passenger> getPassenger(@PathVariable("id") int idpas) {
@@ -24,6 +31,31 @@ public class PassengerController {
                 .map(passenger -> new ResponseEntity<>(passenger, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    @GetMapping("/nombres/{nombre}/{apellidopat}/{apellidomat}")
+    public ResponseEntity<List<Passenger>> getPassengerByNombreApellido(@PathVariable("nombre") String nombre,
+                                                                        @PathVariable("apellidopat") String apellidopat,
+                                                                        @PathVariable("apellidomat") String apellidomat) {
+        return passengerService.getPassengerByNombreApellido(nombre,apellidopat,apellidomat)
+                .map(p -> new ResponseEntity<>(p,HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/email/{correo}")
+    public  ResponseEntity<List<Passenger>> getPassengerByEmail(@PathVariable("correo") String correo) {
+        return passengerService.getPassengerByEmail(correo)
+                .map(p -> new ResponseEntity<>(p, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/phone/{telefono}")
+    public ResponseEntity<List<Passenger>> getPassengerByPhone(@PathVariable("telefono") String telefono) {
+        return passengerService.getPassengerByPhone(telefono)
+                .map(p -> new ResponseEntity<>(p, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+
     @PostMapping("/")
     public ResponseEntity<Passenger> save(@RequestBody Passenger passenger) {
         return new ResponseEntity<>(passengerService.save(passenger), HttpStatus.CREATED);
@@ -33,8 +65,9 @@ public class PassengerController {
         return new ResponseEntity<>(passengerService.update(passenger), HttpStatus.OK);
     }
 
-    @DeleteMapping("/deletepass/{id}")
-    public ResponseEntity delete(@PathVariable("id") int idpas){
-        return new ResponseEntity(passengerService.delete(idpas) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<List<Passenger>> delete(@PathVariable("id") int idpas){
+       passengerService.delete(idpas);
+       return new ResponseEntity(passengerService.getAllActive(),HttpStatus.OK);
     }
 }

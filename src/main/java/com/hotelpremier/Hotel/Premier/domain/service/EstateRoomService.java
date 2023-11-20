@@ -30,12 +30,13 @@ public class EstateRoomService {
         }).orElseThrow(() -> new EntityNotFoundException("EstateRoom not found with ID: " + idestroom));
         return estateRoomRepository.save(estado);
     }
-    public boolean delete(int idestroom) {
+    public void delete(int idestroom) {
         if (getEstateRoom(idestroom).isPresent()){
-            estateRoomRepository.delete(idestroom);
-            return true;
+            EstateRoom estateRoom = estateRoomRepository.getEstateRoom(idestroom).get();
+            estateRoom.setActive("I");
+            estateRoomRepository.save(estateRoom);
         }else {
-            return false;
+            System.out.println("ERROR 404 : ROOM STATUS NOT FOUND");
         }
     }
 }

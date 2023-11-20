@@ -34,6 +34,7 @@ public class EstateRoomController {
     }
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable("id") int idestroom){
-        return new ResponseEntity(estateRoomService.delete(idestroom) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+        estateRoomService.delete(idestroom);
+        return new ResponseEntity<>(estateRoomService.getAll(),HttpStatus.NOT_FOUND);
     }
 }

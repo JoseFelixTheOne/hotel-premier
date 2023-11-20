@@ -33,7 +33,7 @@ public class MenuDController {
         return new ResponseEntity<>(menuDService.update(menuD), HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
-    public  ResponseEntity delete(@PathVariable("id") int menuId){
+    public ResponseEntity delete(@PathVariable("id") int menuId){
         menuDService.delete(menuId);
         return new ResponseEntity<>(menuDService.getAllActive(), HttpStatus.OK);
     }

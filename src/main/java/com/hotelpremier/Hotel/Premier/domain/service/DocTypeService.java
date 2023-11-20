@@ -20,8 +20,7 @@ public class DocTypeService {
         return docTypeRepository.getDocType(idTypeDoc);
     }
     public DocType save(DocType docType) {
-        docType.setIdTypeDoc(null);
-        docType.setActive("a");
+        docType.setActive("A");
         return docTypeRepository.save(docType);
     }
     public DocType update(DocType docType) {
