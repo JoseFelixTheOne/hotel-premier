@@ -12,8 +12,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class DetalleReserva {
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EmbeddedId
     private DetalleReservaPK id;
     @Column(name = "id_habitacion")

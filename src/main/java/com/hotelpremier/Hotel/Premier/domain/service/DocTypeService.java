@@ -31,12 +31,13 @@ public class DocTypeService {
         }).orElseThrow(() -> new EntityNotFoundException("TypeDoc not found with ID: " + idTypeDoc));
         return docTypeRepository.save(tipodoc);
     }
-    public boolean delete(int idTypeDoc) {
+    public void delete(int idTypeDoc) {
         if (getDocType(idTypeDoc).isPresent()) {
-            docTypeRepository.delete(idTypeDoc);
-            return true;
+            DocType docType = getDocType(idTypeDoc).get();
+            docType.setActive("I");
+            docTypeRepository.save(docType);
         }else {
-            return false;
+            System.out.println("DocType not found : " + idTypeDoc);
         }
     }
 }

@@ -36,6 +36,7 @@ public class DocTypeController {
     }
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable("id") int idTypeDoc){
-        return new ResponseEntity(docTypeService.delete(idTypeDoc) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+        docTypeService.delete(idTypeDoc);
+        return new ResponseEntity<>(docTypeService.getAll(), HttpStatus.OK);
     }
 }

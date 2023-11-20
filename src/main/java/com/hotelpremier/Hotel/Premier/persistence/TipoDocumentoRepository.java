@@ -31,10 +31,6 @@ public class TipoDocumentoRepository implements DocTypeRepository {
     }
     @Override
     public void delete(int idTypeDoc) {
-        if( getDocType(idTypeDoc).isPresent()){
-            TipoDocumento tipoDocumento = mapper.toTipoDocumento(getDocType(idTypeDoc).get());
-            tipoDocumento.setActivo("I");
-            save(mapper.toDocType(tipoDocumento));
-        }
+        System.out.println("SE ELIMINO CORRECTAMENTE EL TIPO DE DOCUMENTO : " + idTypeDoc);
     }
 }

@@ -43,8 +43,6 @@ public class PisoRepository implements FloorRepository {
     }
     @Override
     public void delete(int idfloor) {
-        Piso piso = pisoCrudRepository.findById(idfloor).orElse(new Piso());
-        piso.setActivo("d");
-        pisoCrudRepository.save(piso);
+        System.out.println("SE ELIMINÓ EL PISO CON ID: " + idfloor);
     }
 }

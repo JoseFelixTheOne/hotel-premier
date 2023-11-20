@@ -30,12 +30,13 @@ public class FloorService {
         }).orElseThrow(() -> new EntityNotFoundException("Floor not found with ID: " + idfloor));
         return floorRepository.save(piso);
     }
-    public boolean delete(int idfloor) {
+    public void delete(int idfloor) {
         if(getFloor(idfloor).isPresent()) {
-            floorRepository.delete(idfloor);
-            return true;
+            Floor floor = getFloor(idfloor).get();
+            floor.setActive("A");
+            floorRepository.save(floor);
         }else {
-            return false;
+            System.out.println("ERROR 404 : FLOOR NOT FOUND");
         }
     }
 }

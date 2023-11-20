@@ -34,6 +34,7 @@ public class FloorController {
     }
     @DeleteMapping
     public ResponseEntity delete(@PathVariable("id") int idfloor) {
-        return new ResponseEntity(floorService.delete(idfloor) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+        floorService.delete(idfloor);
+        return new ResponseEntity<>(floorService.getAll(), HttpStatus.OK);
     }
 }

@@ -13,7 +13,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class DetalleReservaPK implements Serializable {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_detallereserva")
     private Integer idDetalle;
 
