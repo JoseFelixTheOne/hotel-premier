@@ -1,5 +1,6 @@
 package com.hotelpremier.Hotel.Premier.domain.service;
 
+import com.hotelpremier.Hotel.Premier.domain.Passenger;
 import com.hotelpremier.Hotel.Premier.domain.User;
 import com.hotelpremier.Hotel.Premier.domain.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -13,6 +14,8 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PassengerService passengerService;
     public List<User> getAll(){
         return userRepository.getAll();
     }
@@ -32,6 +35,10 @@ public class UserService {
         return userRepository.getByNombreusuario(name);
     }
     public User save(User user) {
+        System.out.println("Id Pasajero: " + user.getIdpassenger());
+        Passenger passenger = passengerService.getPassenger(user.getIdpassenger()).get();
+        passenger.setPassengerHasUser("1");
+        passengerService.update(passenger);
         user.setActive("A");
         return userRepository.save(user);
     }

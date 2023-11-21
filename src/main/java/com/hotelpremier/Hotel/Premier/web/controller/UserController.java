@@ -92,9 +92,6 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(dtoRegistro.getPassword()));
         Optional<UserType> tipoUsuario = userTypeService.getUserType(dtoRegistro.getUsertpe());
         user.setUsertpe(tipoUsuario.get().getUserTypeId());
-        Passenger passenger = passengerService.getPassenger(dtoRegistro.getIdpassenger()).get();
-        passenger.setPassengerHasUser("1");
-        passengerService.save(passenger);
         return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
     }
     //Logueo y Generación de Token
