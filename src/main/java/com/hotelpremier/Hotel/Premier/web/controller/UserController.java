@@ -1,5 +1,6 @@
 package com.hotelpremier.Hotel.Premier.web.controller;
 
+import com.hotelpremier.Hotel.Premier.domain.Passenger;
 import com.hotelpremier.Hotel.Premier.domain.User;
 import com.hotelpremier.Hotel.Premier.domain.UserType;
 import com.hotelpremier.Hotel.Premier.domain.service.PassengerService;
@@ -76,7 +77,6 @@ public class UserController {
         boolean userexists = userService.existsByUsuarioacceso(dtoRegistro.getUser());
         boolean passengerexists = passengerService.existsById(dtoRegistro.getIdpassenger());
         boolean passengerhasuser = userService.existsByIdpasajero(dtoRegistro.getIdpassenger());
-        System.out.println(dtoRegistro.getUser());
         if(userexists){
             return new ResponseEntity<>("El nombre de usuario ya existe", HttpStatus.BAD_REQUEST);
         }
@@ -92,6 +92,9 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(dtoRegistro.getPassword()));
         Optional<UserType> tipoUsuario = userTypeService.getUserType(dtoRegistro.getUsertpe());
         user.setUsertpe(tipoUsuario.get().getUserTypeId());
+        Passenger passenger = passengerService.getPassenger(dtoRegistro.getIdpassenger()).get();
+        passenger.setPassengerHasUser("1");
+        passengerService.save(passenger);
         return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
     }
     //Logueo y Generación de Token
