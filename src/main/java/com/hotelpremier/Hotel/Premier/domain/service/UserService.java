@@ -28,6 +28,9 @@ public class UserService {
     public List<User> getByNombreusuario(String username){
         return userRepository.getByNombreusuario(username);
     }
+    public List<User> getByUser(String name){
+        return userRepository.getByNombreusuario(name);
+    }
     public User save(User user) {
         user.setActive("A");
         return userRepository.save(user);

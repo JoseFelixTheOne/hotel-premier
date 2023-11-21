@@ -41,6 +41,8 @@ public class UsuarioRepository implements UserRepository{
         List<Usuario> usuarios = usuarioCrudRepository.findByNombreusuario(user).get();
         return mapper.toUsers(usuarios);
     }
+
+
     @Override
     public User save(User user) {
         Usuario usuario = mapper.toUsuario(user);
