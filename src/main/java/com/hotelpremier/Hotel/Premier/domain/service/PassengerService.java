@@ -43,6 +43,7 @@ public class PassengerService {
     }
     public Passenger save(Passenger passenger) {
         passenger.setActive("A");
+        passenger.setPassengerHasUser("0");
         return passengerRepository.save(passenger);
     }
     public Passenger update(Passenger passenger) {
