@@ -55,6 +55,9 @@ public class UserService {
             User user = userRepository.getUser(userId).get();
             user.setActive("I");
             userRepository.save(user);
+            Passenger passenger = passengerService.getPassenger(user.getIdpassenger()).get();
+            passenger.setPassengerHasUser("0");
+            passengerService.update(passenger);
         }
         else {
             System.out.println("ERROR 404 : USER NOT FOUND");
