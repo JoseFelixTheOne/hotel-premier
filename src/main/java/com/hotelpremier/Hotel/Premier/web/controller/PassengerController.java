@@ -31,6 +31,10 @@ public class PassengerController {
                 .map(passenger -> new ResponseEntity<>(passenger, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+    @GetMapping("/listWithoutUser")
+    public ResponseEntity<List<Passenger>> getPassengerWithoutUser(){
+        return new ResponseEntity<>(passengerService.getPassengerWithoutUser(), HttpStatus.OK);
+    }
 
     @GetMapping("/name/{nombre}")
     public ResponseEntity<List<Passenger>> getPassengerByNombreApellido(@PathVariable("nombre") String nombre) {
@@ -52,7 +56,6 @@ public class PassengerController {
                 .map(p -> new ResponseEntity<>(p, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
 
     @PostMapping("/")
     public ResponseEntity<Passenger> save(@RequestBody Passenger passenger) {

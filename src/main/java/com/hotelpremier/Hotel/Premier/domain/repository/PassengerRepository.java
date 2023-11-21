@@ -7,6 +7,7 @@ import java.util.Optional;
 public interface PassengerRepository {
     List<Passenger> getAll();
     List<Passenger> getAllActive();
+    List<Passenger> getPassengerWithoutUser();
     Optional<Passenger> getPassengerById(int passengerid);
     Optional<List<Passenger>> getPassengerByNroDocumento(String nrodocumento);
     Optional<List<Passenger>> getPassengerByNombreApellido(String nombre);

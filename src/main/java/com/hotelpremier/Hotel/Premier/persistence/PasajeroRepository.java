@@ -63,6 +63,13 @@ public class PasajeroRepository implements PassengerRepository {
     public Optional<Passenger> getPassenger(int idpas) {
         return pasajeroCrudRepository.findById(idpas).map(pasajero -> mapper.toPassenger(pasajero));
     }
+
+    @Override
+    public List<Passenger> getPassengerWithoutUser() {
+        List<Pasajero> pasajeros = pasajeroCrudRepository.getPassengerWithoutUser();
+        return mapper.toPassengers(pasajeros);
+    }
+
     @Override
     public Passenger save(Passenger passenger) {
         return mapper.toPassenger(pasajeroCrudRepository.save(mapper.toPasajero(passenger)));

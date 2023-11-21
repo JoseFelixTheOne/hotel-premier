@@ -38,6 +38,9 @@ public class PassengerService {
     public Optional<Passenger> getPassenger(int idpas)  {
         return passengerRepository.getPassengerById(idpas);
     }
+    public List<Passenger> getPassengerWithoutUser(){
+        return passengerRepository.getPassengerWithoutUser();
+    }
     public Passenger save(Passenger passenger) {
         passenger.setActive("A");
         return passengerRepository.save(passenger);

@@ -22,5 +22,7 @@ public interface PasajeroCrudRepository extends JpaRepository<Pasajero, Integer>
     Optional<List<Pasajero>> getPasajeroByPhone(@Param("telefono") String telefono);
     @Query(value = "SELECT * FROM tb_pasajero WHERE activo_pasajero = 'A'", nativeQuery = true)
     Optional<List<Pasajero>> findAllActive();
+    @Query(value = "SELECT * FROM tb_pasajero WHERE btieneusuario_persona = 0 AND activo_pasajero = 'A'", nativeQuery = true)
+    List<Pasajero> getPassengerWithoutUser();
     boolean existsById(int idpas);
 }
