@@ -75,27 +75,30 @@ public class UserController {
     //Registro de Usuario
     @PostMapping("/")
     public ResponseEntity<?> save(@RequestBody DtoRegistro dtoRegistro){
+        Passenger passenger = passengerService.getPassenger(dtoRegistro.getIdpassenger()).get();
         User user = new User();
         boolean userexists = userService.existsByUsuarioacceso(dtoRegistro.getUser());
-        boolean passengerexists = passengerService.existsById(dtoRegistro.getIdpassenger());
-        boolean passengerhasuser = userService.existsByIdpasajero(dtoRegistro.getIdpassenger());
-        if(userexists){
-            return new ResponseEntity<>("El nombre de usuario se encuentra en uso", HttpStatus.BAD_REQUEST);
-        }
-        else if (!passengerexists){
+        boolean personexists = passengerService.existsById(dtoRegistro.getIdpassenger());
+        boolean personhasuser = userService.existsByIdpasajero(dtoRegistro.getIdpassenger());
+        if (!personexists){
             return new ResponseEntity<>("El pasajero no está registrado", HttpStatus.BAD_REQUEST);
         }
-        else if(passengerhasuser){
-            if(userService.getByUsername(dtoRegistro.getUser()).get().getActive().equals("A")){
-                return new ResponseEntity<>("La persona ya tiene un usuario creado", HttpStatus.BAD_REQUEST);
+        else if(userexists){
+            return new ResponseEntity<>("El nombre de usuario se encuentra en uso", HttpStatus.BAD_REQUEST);
+        }
+        else if (personhasuser){
+            if(passenger.getActive().equals("A")){
+                return new ResponseEntity<>("El pasajero ya tiene un usuario creado", HttpStatus.BAD_REQUEST);
             }
-            else {
+            else{
                 BeanUtils.copyProperties(dtoRegistro, user);
                 return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
             }
         }
-        BeanUtils.copyProperties(dtoRegistro, user);
-        return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+        else{
+            BeanUtils.copyProperties(dtoRegistro, user);
+            return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+        }
     }
     //Logueo y Generación de Token
     @PostMapping("/login")
@@ -105,21 +108,22 @@ public class UserController {
     //Actualización de Usuario
     @PutMapping("/")
     public ResponseEntity<?> update(@RequestBody User user) {
-            Optional<User> usuarioExistente = userService.getByUsername(user.getUser());
-            boolean userexists = userService.existsByUsuarioacceso(user.getUser());
-            if(userexists){
-                if (usuarioExistente.get().getIduser() == user.getIduser()){
-                    return new ResponseEntity<>(userService.update(user), HttpStatus.OK);
-                }
-                else if (!userService.getUser(user.getIduser()).isPresent()){
-                    return new ResponseEntity<>("El usuario no existe", HttpStatus.BAD_REQUEST);
-                }else {
-                    return new ResponseEntity<>("El nombre de usuario se encuentra en uso", HttpStatus.BAD_REQUEST);
-                }
-            }
-            else {
+        Optional<User> usuarioExistente = userService.getByUsername(user.getUser());
+        boolean userexists = userService.existsByUsuarioacceso(user.getUser());
+        if(userexists){
+            if (usuarioExistente.get().getIduser() == user.getIduser()){
                 return new ResponseEntity<>(userService.update(user), HttpStatus.OK);
             }
+            else {
+                return new ResponseEntity<>("El nombre de usuario se encuentra en uso", HttpStatus.BAD_REQUEST);
+            }
+        }
+        else if (!userService.getUser(user.getIduser()).isPresent()){
+            return new ResponseEntity<>("El usuario no existe", HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(userService.update(user), HttpStatus.OK);
+        }
     }
     // Eliminación de Usuario
     // -> Pasa a Inactivo
