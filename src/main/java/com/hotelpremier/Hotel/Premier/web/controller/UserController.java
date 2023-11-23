@@ -13,6 +13,7 @@ import com.hotelpremier.Hotel.Premier.web.dtosecurity.DtoAuthResponse;
 import com.hotelpremier.Hotel.Premier.web.dtosecurity.DtoLogin;
 import com.hotelpremier.Hotel.Premier.web.dtosecurity.DtoRegistro;
 import com.hotelpremier.Hotel.Premier.web.security.JwtGenerator;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -68,50 +69,57 @@ public class UserController {
     //Búsqueda de usuario por username
     @GetMapping("/username/{username}")
     public ResponseEntity<List<User>> getByUsuarioacceso(@PathVariable("username") String username){
-        return new ResponseEntity<>(userService.getByNombreusuario(username), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getByListaByNombreusuario(username), HttpStatus.OK);
 
     }
     //Registro de Usuario
     @PostMapping("/")
     public ResponseEntity<?> save(@RequestBody DtoRegistro dtoRegistro){
+        User user = new User();
         boolean userexists = userService.existsByUsuarioacceso(dtoRegistro.getUser());
         boolean passengerexists = passengerService.existsById(dtoRegistro.getIdpassenger());
         boolean passengerhasuser = userService.existsByIdpasajero(dtoRegistro.getIdpassenger());
         if(userexists){
-            return new ResponseEntity<>("El nombre de usuario ya existe", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("El nombre de usuario se encuentra en uso", HttpStatus.BAD_REQUEST);
         }
         else if (!passengerexists){
-            return new ResponseEntity<>("El pasajero no existe", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("El pasajero no está registrado", HttpStatus.BAD_REQUEST);
         }
         else if(passengerhasuser){
-            return new ResponseEntity<>("El pasajero ya tiene un usuario", HttpStatus.BAD_REQUEST);
+            if(userService.getByUsername(dtoRegistro.getUser()).get().getActive().equals("A")){
+                return new ResponseEntity<>("La persona ya tiene un usuario creado", HttpStatus.BAD_REQUEST);
+            }
+            else {
+                BeanUtils.copyProperties(dtoRegistro, user);
+                return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+            }
         }
-        User user = new User();
-        user.setIdpassenger(dtoRegistro.getIdpassenger());
-        user.setUser(dtoRegistro.getUser());
-        user.setPassword(passwordEncoder.encode(dtoRegistro.getPassword()));
-        Optional<UserType> tipoUsuario = userTypeService.getUserType(dtoRegistro.getUsertpe());
-        user.setUsertpe(tipoUsuario.get().getUserTypeId());
+        BeanUtils.copyProperties(dtoRegistro, user);
         return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
     }
     //Logueo y Generación de Token
     @PostMapping("/login")
     public ResponseEntity<DtoAuthResponse> login(@RequestBody DtoLogin dtoLogin){
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dtoLogin.getUser(), dtoLogin.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = jwtGenerator.generarToken(authentication);
-        String username = jwtGenerator.obtenerUsernameDeJwt(token);
-        List<User> user = userService.getByNombreusuario(username);
-        int userId = user.get(0).getIduser();
-        String name = user.get(0).getObjPassenger().getNames();
-        String lastname1 = user.get(0).getObjPassenger().getLastname1();
-        String lastname2 = user.get(0).getObjPassenger().getLastname2();
-        return new ResponseEntity<>(new DtoAuthResponse(token, username , userId, name, lastname1, lastname2), HttpStatus.OK);
+        return new ResponseEntity<>(userService.login(dtoLogin.getUser(), dtoLogin.getPassword()), HttpStatus.OK);
     }
     //Actualización de Usuario
     @PutMapping("/")
-    public ResponseEntity<User> update(@RequestBody User user) {
-        return new ResponseEntity<>(userService.update(user), HttpStatus.OK);
+    public ResponseEntity<?> update(@RequestBody User user) {
+            Optional<User> usuarioExistente = userService.getByUsername(user.getUser());
+            boolean userexists = userService.existsByUsuarioacceso(user.getUser());
+            if(userexists){
+                if (usuarioExistente.get().getIduser() == user.getIduser()){
+                    return new ResponseEntity<>(userService.update(user), HttpStatus.OK);
+                }
+                else if (!userService.getUser(user.getIduser()).isPresent()){
+                    return new ResponseEntity<>("El usuario no existe", HttpStatus.BAD_REQUEST);
+                }else {
+                    return new ResponseEntity<>("El nombre de usuario se encuentra en uso", HttpStatus.BAD_REQUEST);
+                }
+            }
+            else {
+                return new ResponseEntity<>(userService.update(user), HttpStatus.OK);
+            }
     }
     // Eliminación de Usuario
     // -> Pasa a Inactivo

@@ -13,10 +13,9 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class PassengerService {
-
+    @Autowired
     private PassengerRepository passengerRepository;
     public List<Passenger> getAll() {
-
         return passengerRepository.getAll();
     }
     public List<Passenger> getAllActive(){

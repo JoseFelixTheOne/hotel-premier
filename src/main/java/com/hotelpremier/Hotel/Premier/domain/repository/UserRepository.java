@@ -9,7 +9,8 @@ public interface UserRepository {
     List<User> getAllActive();
     List<User> getAllInactive();
     Optional<User> getUser(int iduser);
-    List<User> getByNombreusuario(String user);
+    List<User> getByListaByNombreusuario(String user);
+    Optional<User> getByUsername(String user);
     User save(User user);
     void delete(int iduser);
     boolean existsByUsuarioacceso(String username);

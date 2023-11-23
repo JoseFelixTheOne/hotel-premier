@@ -2,11 +2,20 @@ package com.hotelpremier.Hotel.Premier.domain.service;
 
 import com.hotelpremier.Hotel.Premier.domain.Passenger;
 import com.hotelpremier.Hotel.Premier.domain.User;
+import com.hotelpremier.Hotel.Premier.domain.UserType;
 import com.hotelpremier.Hotel.Premier.domain.repository.UserRepository;
+import com.hotelpremier.Hotel.Premier.web.dtosecurity.DtoAuthResponse;
+import com.hotelpremier.Hotel.Premier.web.security.JwtGenerator;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +25,14 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private PassengerService passengerService;
+    @Autowired
+    private UserTypeService userTypeService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private JwtGenerator jwtGenerator;
     public List<User> getAll(){
         return userRepository.getAll();
     }
@@ -28,28 +45,40 @@ public class UserService {
     public Optional<User> getUser(int iduser) {
         return userRepository.getUser(iduser);
     }
-    public List<User> getByNombreusuario(String username){
-        return userRepository.getByNombreusuario(username);
+    public List<User> getByListaByNombreusuario(String username){
+        return userRepository.getByListaByNombreusuario(username);
     }
-    public List<User> getByUser(String name){
-        return userRepository.getByNombreusuario(name);
+    public Optional<User> getByUsername(String name){
+        return userRepository.getByUsername(name);
     }
+    @Transactional
     public User save(User user) {
-        System.out.println("Id Pasajero: " + user.getIdpassenger());
+
+        User newUser = new User();
+        newUser.setIdpassenger(user.getIdpassenger());
+        newUser.setUser(user.getUser());
+        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        Optional<UserType> tipoUsuario = userTypeService.getUserType(user.getUsertpe());
+        newUser.setUsertpe(tipoUsuario.get().getUserTypeId());
+        newUser.setActive("A");
+
         Passenger passenger = passengerService.getPassenger(user.getIdpassenger()).get();
         passenger.setPassengerHasUser("1");
         passengerService.update(passenger);
-        user.setActive("A");
-        return userRepository.save(user);
+
+        return userRepository.save(newUser);
     }
     public User update(User user) {
         int iduser = user.getIduser();
         User usuario = getUser(iduser).map(u ->{
             BeanUtils.copyProperties(user, u);
+            u.setPassword(passwordEncoder.encode(user.getPassword()));
+            u.setActive("A");
             return u;
         }).orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + iduser));
         return userRepository.save(usuario);
     }
+    @Transactional
     public void delete(int userId) {
         if (getUser(userId).isPresent()) {
             User user = userRepository.getUser(userId).get();
@@ -69,4 +98,19 @@ public class UserService {
     public boolean existsByIdpasajero(int idpasajero){
         return userRepository.existsByIdpasajero(idpasajero);
     }
+
+    @Transactional
+    public DtoAuthResponse login(String user, String password) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user, password));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token = jwtGenerator.generarToken(authentication);
+        String username = jwtGenerator.obtenerUsernameDeJwt(token);
+        User u = userRepository.getByUsername(username).get();
+        int userId = u.getIduser();
+        String name = u.getObjPassenger().getNames();
+        String lastname1 = u.getObjPassenger().getLastname1();
+        String lastname2 = u.getObjPassenger().getLastname2();
+        return new DtoAuthResponse(token, username , userId, name, lastname1, lastname2);
+    }
+
 }

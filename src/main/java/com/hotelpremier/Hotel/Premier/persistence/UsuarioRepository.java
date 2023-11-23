@@ -37,9 +37,14 @@ public class UsuarioRepository implements UserRepository{
         return usuarioCrudRepository.findById(iduser).map(usuario -> mapper.toUser(usuario));
     }
     @Override
-    public List<User> getByNombreusuario(String user){
+    public List<User> getByListaByNombreusuario(String user){
         List<Usuario> usuarios = usuarioCrudRepository.findByNombreusuario(user).get();
         return mapper.toUsers(usuarios);
+    }
+
+    @Override
+    public Optional<User> getByUsername(String user) {
+        return usuarioCrudRepository.findByUsuarioacceso(user).map(usuario -> mapper.toUser(usuario));
     }
 
 

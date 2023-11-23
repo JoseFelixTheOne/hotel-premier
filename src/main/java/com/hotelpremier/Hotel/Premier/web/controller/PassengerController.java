@@ -3,10 +3,8 @@ package com.hotelpremier.Hotel.Premier.web.controller;
 import com.hotelpremier.Hotel.Premier.domain.Passenger;
 import com.hotelpremier.Hotel.Premier.domain.service.PassengerService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
