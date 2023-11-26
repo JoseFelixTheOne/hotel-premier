@@ -7,20 +7,20 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/correo")
+@RequestMapping("mail")
 public class MailController {
 
     @Autowired
     public MailService mailService;
 
-    @PostMapping("/enviar")
-    public String envioCorreo(@RequestBody Mail oCorreoDTO) {
+    @PostMapping
+    public String sendMail(@RequestBody Mail mail) {
         return mailService.enviarCorreo(
-                oCorreoDTO.getCorreosAEnviar(),
-                oCorreoDTO.getAsunto(),
-                oCorreoDTO.getContenido(),
-                oCorreoDTO.getNombresArchivos(),
-                oCorreoDTO.getListabyte()
+                mail.getCorreosAEnviar(),
+                mail.getAsunto(),
+                mail.getContenido(),
+                mail.getNombresArchivos(),
+                mail.getListabyte()
         );
     }
 
