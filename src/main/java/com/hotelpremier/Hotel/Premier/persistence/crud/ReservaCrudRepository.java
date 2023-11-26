@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface ReservaCrudRepository extends JpaRepository<Reserva, Integer> {
     Optional<List<Reserva>> findAllByidUsuario(Integer idUsuario);
     Optional<List<Reserva>> findAllByFechaReservaBetween(LocalDateTime start, LocalDateTime end);
+    Optional<List<Reserva>> findAllByIdUsuarioAndFechaReservaBetween(Integer idUsuario,LocalDateTime start, LocalDateTime end);
 }
