@@ -110,7 +110,8 @@ public class UserService {
         String name = u.getObjPassenger().getNames();
         String lastname1 = u.getObjPassenger().getLastname1();
         String lastname2 = u.getObjPassenger().getLastname2();
-        return new DtoAuthResponse(token, username , userId, name, lastname1, lastname2);
+        String email = u.getObjPassenger().getEmail();
+        return new DtoAuthResponse(token, username , userId, name, lastname1, lastname2, email);
     }
 
 }
