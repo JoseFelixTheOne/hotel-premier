@@ -1,5 +1,4 @@
 FROM openjdk:17
-VOLUME /tmp
 EXPOSE 8080
-ADD ./build/libs/Hotel-Premier-0.0.1-SNAPSHOT.jar app.jar
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+COPY build/libs/*.jar app.jar
+ENTRYPOINT excec java -jar app.jar
