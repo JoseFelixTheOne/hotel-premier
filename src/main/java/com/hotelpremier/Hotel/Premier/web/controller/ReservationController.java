@@ -36,6 +36,10 @@ public class ReservationController {
     public ResponseEntity<List<Reservation>> getBetween(@RequestBody DateRangeDTO rangeDTO) {
         return ResponseEntity.of(reservationService.getBetween(rangeDTO));
     }
+    @PostMapping("{iduser}/my-reservations")
+    public ResponseEntity<List<Reservation>> getByClientBetween(@PathVariable int iduser ,@RequestBody DateRangeDTO rangeDTO) {
+        return ResponseEntity.of(reservationService.getByClientBetween(iduser,rangeDTO));
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Reservation> getReservation(@PathVariable("id") int reservationId) {

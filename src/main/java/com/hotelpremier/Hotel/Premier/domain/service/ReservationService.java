@@ -38,6 +38,11 @@ public class ReservationService {
     public Optional<List<Reservation>> getBetween(DateRangeDTO rangeDTO) {
         return reservationRepository.getBetween(rangeDTO.getStartDate(), rangeDTO.getEndDate());
     }
+
+    public Optional<List<Reservation>> getByClientBetween(int iduser, DateRangeDTO rangeDTO) {
+        return reservationRepository.getByClientBetween(iduser, rangeDTO.getStartDate(), rangeDTO.getEndDate());
+    }
+
     //falta eliminacion logica
     public boolean delete(int reservationId) {
         if (getReservation(reservationId).isPresent()){

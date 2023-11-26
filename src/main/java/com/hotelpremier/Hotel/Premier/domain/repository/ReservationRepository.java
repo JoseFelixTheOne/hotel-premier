@@ -13,4 +13,5 @@ public interface ReservationRepository {
     Reservation save(Reservation reservation);
     void delete(int reservationId);
     Optional<List<Reservation>> getBetween(LocalDateTime start, LocalDateTime end);
+    Optional<List<Reservation>> getByClientBetween(int iduser,LocalDateTime start, LocalDateTime end);
 }

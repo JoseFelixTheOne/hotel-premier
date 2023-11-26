@@ -40,6 +40,12 @@ public class ReservaRepository implements ReservationRepository {
     }
 
     @Override
+    public Optional<List<Reservation>> getByClientBetween(int iduser, LocalDateTime start, LocalDateTime end) {
+        return reservaCrudRepository.findAllByIdUsuarioAndFechaReservaBetween(iduser, start,end)
+                .map(reservas -> mapper.toReservations(reservas));
+    }
+
+    @Override
     public Reservation save(Reservation reservation) {
         Reserva reserva = mapper.toReserva(reservation);
         reserva.getDetalles().forEach(detalle -> detalle.setReserva(reserva));
