@@ -36,12 +36,12 @@ public class ReservaRepository implements ReservationRepository {
 
     @Override
     public Optional<List<Reservation>> getBetween(LocalDateTime start, LocalDateTime end) {
-        return reservaCrudRepository.findAllByFechaReservaBetween(start, end).map(reservas -> mapper.toReservations(reservas));
+        return reservaCrudRepository.findAllByFechaReservaBetweenOrderByFechaReservaDesc(start, end).map(reservas -> mapper.toReservations(reservas));
     }
 
     @Override
     public Optional<List<Reservation>> getByClientBetween(int iduser, LocalDateTime start, LocalDateTime end) {
-        return reservaCrudRepository.findAllByIdUsuarioAndFechaReservaBetween(iduser, start,end)
+        return reservaCrudRepository.findAllByIdUsuarioAndFechaReservaBetweenOrderByFechaReservaDesc(iduser, start,end)
                 .map(reservas -> mapper.toReservations(reservas));
     }
 
