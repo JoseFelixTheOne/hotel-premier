@@ -29,10 +29,6 @@ public class MailService {
 
                 if (nombresArchivos != null && listabyte != null) {
                     for (int i = 0; i < nombresArchivos.size(); i++) {
-                        // Configurar el tipo de contenido del archivo PDF
-                         System.out.println(listabyte.get(i));
-                        System.out.println("-------------------------------------------------");
-                        System.out.println("Longitud"+listabyte.get(i).length);
 
                         ByteArrayResource fileResource = new ByteArrayResource(listabyte.get(i));
                         messageHelper.addAttachment(nombresArchivos.get(i), fileResource, "application/pdf");
