@@ -1,6 +1,7 @@
 package com.hotelpremier.Hotel.Premier.web.controller;
 
 import com.hotelpremier.Hotel.Premier.domain.Reservation;
+import com.hotelpremier.Hotel.Premier.domain.dto.DateRangeDTO;
 import com.hotelpremier.Hotel.Premier.domain.service.ReservationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,12 @@ public class ReservationController {
     public ResponseEntity<List<Reservation>> getByClient(@PathVariable int iduser){
         return ResponseEntity.of(reservationService.getByClient(iduser));
     }
+
+    @PostMapping("between-range")
+    public ResponseEntity<List<Reservation>> getBetween(@RequestBody DateRangeDTO rangeDTO) {
+        return ResponseEntity.of(reservationService.getBetween(rangeDTO));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Reservation> getReservation(@PathVariable("id") int reservationId) {
         return reservationService.getReservation(reservationId)
