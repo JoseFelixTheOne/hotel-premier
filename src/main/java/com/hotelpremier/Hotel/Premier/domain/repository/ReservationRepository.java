@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface ReservationRepository {
     List<Reservation> getAll();
     Optional<Reservation> getReservation(int reservationId);
-    Optional<Reservation> getByClient(int iduser);
+    Optional<List<Reservation>> getByClient(int iduser);
     Reservation save(Reservation reservation);
     void delete(int reservationId);
 

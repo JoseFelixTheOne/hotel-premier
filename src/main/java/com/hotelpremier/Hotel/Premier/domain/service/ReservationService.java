@@ -30,6 +30,10 @@ public class ReservationService {
         return reservationRepository.getReservation(reservationId);
     }
 
+    public Optional<List<Reservation>> getByClient(int iduser) {
+        return reservationRepository.getByClient(iduser);
+    }
+
     //falta eliminacion logica
     public boolean delete(int reservationId) {
         if (getReservation(reservationId).isPresent()){

@@ -29,8 +29,8 @@ public class ReservaRepository implements ReservationRepository {
     }
 
     @Override
-    public Optional<Reservation> getByClient(int iduser) {
-        return reservaCrudRepository.findByidUsuario(iduser).map(reserva -> mapper.toReservation(reserva));
+    public Optional<List<Reservation>> getByClient(int iduser) {
+        return reservaCrudRepository.findAllByidUsuario(iduser).map(reserva -> mapper.toReservations(reserva));
     }
 
     @Override

@@ -26,6 +26,10 @@ public class ReservationController {
         return new ResponseEntity<>(reservationService.getAll(), HttpStatus.OK);
     }
 
+    @GetMapping("{iduser}/my-reservations")
+    public ResponseEntity<List<Reservation>> getByClient(@PathVariable int iduser){
+        return ResponseEntity.of(reservationService.getByClient(iduser));
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Reservation> getReservation(@PathVariable("id") int reservationId) {
         return reservationService.getReservation(reservationId)
