@@ -2,6 +2,7 @@ package com.hotelpremier.Hotel.Premier.domain.service;
 
 import com.hotelpremier.Hotel.Premier.domain.Reservation;
 import com.hotelpremier.Hotel.Premier.domain.ReservationDetail;
+import com.hotelpremier.Hotel.Premier.domain.dto.DateRangeDTO;
 import com.hotelpremier.Hotel.Premier.domain.repository.ReservationRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,13 @@ public class ReservationService {
         return reservationRepository.getReservation(reservationId);
     }
 
+    public Optional<List<Reservation>> getByClient(int iduser) {
+        return reservationRepository.getByClient(iduser);
+    }
+
+    public Optional<List<Reservation>> getBetween(DateRangeDTO rangeDTO) {
+        return reservationRepository.getBetween(rangeDTO.getStartDate(), rangeDTO.getEndDate());
+    }
     //falta eliminacion logica
     public boolean delete(int reservationId) {
         if (getReservation(reservationId).isPresent()){
