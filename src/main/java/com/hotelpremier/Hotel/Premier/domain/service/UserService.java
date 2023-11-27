@@ -3,6 +3,7 @@ package com.hotelpremier.Hotel.Premier.domain.service;
 import com.hotelpremier.Hotel.Premier.domain.Passenger;
 import com.hotelpremier.Hotel.Premier.domain.User;
 import com.hotelpremier.Hotel.Premier.domain.UserType;
+import com.hotelpremier.Hotel.Premier.domain.dto.RegisterUserDTO;
 import com.hotelpremier.Hotel.Premier.domain.repository.UserRepository;
 import com.hotelpremier.Hotel.Premier.web.dtosecurity.DtoAuthResponse;
 import com.hotelpremier.Hotel.Premier.web.security.JwtGenerator;
@@ -67,6 +68,30 @@ public class UserService {
         passengerService.update(passenger);
 
         return userRepository.save(newUser);
+    }
+    @Transactional
+    public User registerUser(RegisterUserDTO userDTO){
+        Passenger passenger = new Passenger();
+        passenger.setIdtpodoc(userDTO.getIdtpodoc());
+        passenger.setNrodoc(userDTO.getNrodoc());
+        passenger.setNames(userDTO.getNames());
+        passenger.setLastname1(userDTO.getLastname1());
+        passenger.setLastname2(userDTO.getLastname2());
+        passenger.setEmail(userDTO.getEmail());
+        passenger.setPhone(userDTO.getPhone());
+        passenger.setPassengerHasUser("1");
+
+        Passenger registerPsg = passengerService.save(passenger);
+
+        User user = new User();
+        user.setIdpassenger(registerPsg.getIdpas());
+        user.setObjPassenger(registerPsg);
+        user.setUser(userDTO.getUser());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        user.setUsertpe(2);
+        user.setObjuserType(userTypeService.getUserType(2).orElse(null));
+
+        return userRepository.save(user);
     }
     public User update(User user) {
         int iduser = user.getIduser();
