@@ -1,12 +1,13 @@
-package com.hotelpremier.Hotel.Premier.domain;
+package com.hotelpremier.Hotel.Premier.domain.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Passenger {
-    private int idpas;
+public class RegisterUserDTO {
+    private String user;
+    private String password;
     private int idtpodoc;
     private String nrodoc;
     private String names;
@@ -14,8 +15,4 @@ public class Passenger {
     private String lastname2;
     private String email;
     private String phone;
-    private String active="A";
-    private String passengerHasUser;
-
-    private DocType docType;
 }

@@ -11,7 +11,7 @@ public class User {
     private String user;
     private String password;
     private int usertpe;
-    private String active;
+    private String active = "A";
 
     private UserType objuserType;
     private Passenger objPassenger;
