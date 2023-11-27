@@ -103,7 +103,6 @@ public class UserService {
         int iduser = user.getIduser();
         User usuario = getUser(iduser).map(u ->{
             BeanUtils.copyProperties(user, u);
-            u.setPassword(passwordEncoder.encode(user.getPassword()));
             u.setActive("A");
             return u;
         }).orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + iduser));

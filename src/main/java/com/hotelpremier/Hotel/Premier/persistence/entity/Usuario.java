@@ -17,7 +17,7 @@ public class Usuario {
     private int idpasajero;
     @Column(name = "user_usuario")
     private String usuarioacceso;
-    @Column(name = "clave_usuario")
+    @Column(name = "clave_usuario", updatable = false)
     private String clave;
     @Column(name = "id_tipouser")
     private int tipousuario;
