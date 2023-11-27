@@ -79,9 +79,10 @@ public class UserService {
         passenger.setLastname2(userDTO.getLastname2());
         passenger.setEmail(userDTO.getEmail());
         passenger.setPhone(userDTO.getPhone());
-        passenger.setPassengerHasUser("1");
+        Passenger tempPass = passengerService.save(passenger);
+        tempPass.setPassengerHasUser("1");
 
-        Passenger registerPsg = passengerService.save(passenger);
+        Passenger registerPsg = passengerService.update(tempPass);
 
         User user = new User();
         user.setIdpassenger(registerPsg.getIdpas());
