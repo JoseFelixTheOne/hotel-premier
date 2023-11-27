@@ -1,8 +1,6 @@
 package com.hotelpremier.Hotel.Premier.domain.service;
 
-import com.hotelpremier.Hotel.Premier.domain.Passenger;
-import com.hotelpremier.Hotel.Premier.domain.User;
-import com.hotelpremier.Hotel.Premier.domain.UserType;
+import com.hotelpremier.Hotel.Premier.domain.*;
 import com.hotelpremier.Hotel.Premier.domain.repository.UserRepository;
 import com.hotelpremier.Hotel.Premier.web.dtosecurity.DtoAuthResponse;
 import com.hotelpremier.Hotel.Premier.web.security.JwtGenerator;
@@ -16,6 +14,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +27,8 @@ public class UserService {
     private PassengerService passengerService;
     @Autowired
     private UserTypeService userTypeService;
+    @Autowired
+    private UserTypeMenuService userTypeMenuService;
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -111,7 +113,12 @@ public class UserService {
         String lastname1 = u.getObjPassenger().getLastname1();
         String lastname2 = u.getObjPassenger().getLastname2();
         String email = u.getObjPassenger().getEmail();
-        return new DtoAuthResponse(token, username , userId, name, lastname1, lastname2, email);
+        List<UserTypeMenu> types = userTypeMenuService.getRolesByUserType(u.getUsertpe()).orElse(null);
+        List<MenuD> menus = new ArrayList<>();
+        for(UserTypeMenu type: types){
+            menus.add(type.getMenu());
+        }
+        return new DtoAuthResponse(token, username , userId, name, lastname1, lastname2, email, menus);
     }
 
 }
