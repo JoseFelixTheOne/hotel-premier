@@ -1,8 +1,10 @@
 package com.hotelpremier.Hotel.Premier.domain.service;
 
+import com.hotelpremier.Hotel.Premier.domain.*;
 import com.hotelpremier.Hotel.Premier.domain.Passenger;
 import com.hotelpremier.Hotel.Premier.domain.User;
 import com.hotelpremier.Hotel.Premier.domain.UserType;
+import com.hotelpremier.Hotel.Premier.domain.dto.RegisterUserDTO;
 import com.hotelpremier.Hotel.Premier.domain.repository.UserRepository;
 import com.hotelpremier.Hotel.Premier.web.dtosecurity.DtoAuthResponse;
 import com.hotelpremier.Hotel.Premier.web.security.JwtGenerator;
@@ -16,6 +18,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +31,8 @@ public class UserService {
     private PassengerService passengerService;
     @Autowired
     private UserTypeService userTypeService;
+    @Autowired
+    private UserTypeMenuService userTypeMenuService;
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -68,11 +74,35 @@ public class UserService {
 
         return userRepository.save(newUser);
     }
+    @Transactional
+    public User registerUser(RegisterUserDTO userDTO){
+        Passenger passenger = new Passenger();
+        passenger.setIdtpodoc(userDTO.getIdtpodoc());
+        passenger.setNrodoc(userDTO.getNrodoc());
+        passenger.setNames(userDTO.getNames());
+        passenger.setLastname1(userDTO.getLastname1());
+        passenger.setLastname2(userDTO.getLastname2());
+        passenger.setEmail(userDTO.getEmail());
+        passenger.setPhone(userDTO.getPhone());
+        Passenger tempPass = passengerService.save(passenger);
+        tempPass.setPassengerHasUser("1");
+
+        Passenger registerPsg = passengerService.update(tempPass);
+
+        User user = new User();
+        user.setIdpassenger(registerPsg.getIdpas());
+        user.setObjPassenger(registerPsg);
+        user.setUser(userDTO.getUser());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        user.setUsertpe(2);
+        user.setObjuserType(userTypeService.getUserType(2).orElse(null));
+
+        return userRepository.save(user);
+    }
     public User update(User user) {
         int iduser = user.getIduser();
         User usuario = getUser(iduser).map(u ->{
             BeanUtils.copyProperties(user, u);
-            u.setPassword(passwordEncoder.encode(user.getPassword()));
             u.setActive("A");
             return u;
         }).orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + iduser));
@@ -110,7 +140,13 @@ public class UserService {
         String name = u.getObjPassenger().getNames();
         String lastname1 = u.getObjPassenger().getLastname1();
         String lastname2 = u.getObjPassenger().getLastname2();
-        return new DtoAuthResponse(token, username , userId, name, lastname1, lastname2);
+        String email = u.getObjPassenger().getEmail();
+        List<UserTypeMenu> types = userTypeMenuService.getRolesByUserType(u.getUsertpe()).orElse(null);
+        List<MenuD> menus = new ArrayList<>();
+        for(UserTypeMenu type: types){
+            menus.add(type.getMenu());
+        }
+        return new DtoAuthResponse(token, username , userId, name, lastname1, lastname2, email, menus);
     }
 
 }

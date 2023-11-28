@@ -3,6 +3,7 @@ package com.hotelpremier.Hotel.Premier.web.controller;
 import com.hotelpremier.Hotel.Premier.domain.Passenger;
 import com.hotelpremier.Hotel.Premier.domain.User;
 import com.hotelpremier.Hotel.Premier.domain.UserType;
+import com.hotelpremier.Hotel.Premier.domain.dto.RegisterUserDTO;
 import com.hotelpremier.Hotel.Premier.domain.service.PassengerService;
 import com.hotelpremier.Hotel.Premier.domain.service.UserService;
 import com.hotelpremier.Hotel.Premier.domain.service.UserTypeService;
@@ -99,6 +100,11 @@ public class UserController {
             BeanUtils.copyProperties(dtoRegistro, user);
             return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
         }
+    }
+    @PostMapping("register")
+    @ResponseStatus(HttpStatus.OK)
+    public User registerUser(@RequestBody RegisterUserDTO userDTO) {
+        return userService.registerUser(userDTO);
     }
     //Logueo y Generación de Token
     @PostMapping("/login")

@@ -8,6 +8,7 @@ import com.hotelpremier.Hotel.Premier.persistence.mapper.ReservationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +30,19 @@ public class ReservaRepository implements ReservationRepository {
     }
 
     @Override
-    public Optional<Reservation> getByClient(int iduser) {
-        return reservaCrudRepository.findByidUsuario(iduser).map(reserva -> mapper.toReservation(reserva));
+    public Optional<List<Reservation>> getByClient(int iduser) {
+        return reservaCrudRepository.findAllByidUsuario(iduser).map(reservas -> mapper.toReservations(reservas));
+    }
+
+    @Override
+    public Optional<List<Reservation>> getBetween(LocalDateTime start, LocalDateTime end) {
+        return reservaCrudRepository.findAllByFechaReservaBetweenOrderByFechaReservaDesc(start, end).map(reservas -> mapper.toReservations(reservas));
+    }
+
+    @Override
+    public Optional<List<Reservation>> getByClientBetween(int iduser, LocalDateTime start, LocalDateTime end) {
+        return reservaCrudRepository.findAllByIdUsuarioAndFechaReservaBetweenOrderByFechaReservaDesc(iduser, start,end)
+                .map(reservas -> mapper.toReservations(reservas));
     }
 
     @Override
